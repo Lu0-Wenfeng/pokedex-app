@@ -1,7 +1,12 @@
 // Component prop interfaces for TypeScript conversion
 
-import React from 'react';
-import { Pokemon, PokemonSpecies, PokemonTypeData, PokemonStat } from './pokemon.types';
+import React from "react";
+import {
+  Pokemon,
+  PokemonSpecies,
+  PokemonStat,
+  PokemonTypeData,
+} from "./pokemon.types";
 
 // Common component props
 export interface BaseComponentProps {
@@ -61,7 +66,19 @@ export interface ColorfulTagProps {
 
 // Tooltip component props
 export interface TooltipProps {
-  placement?: string;
+  placement?:
+    | "top"
+    | "bottom"
+    | "left"
+    | "right"
+    | "topStart"
+    | "topEnd"
+    | "bottomStart"
+    | "bottomEnd"
+    | "leftStart"
+    | "leftEnd"
+    | "rightStart"
+    | "rightEnd";
   data: any;
   className?: string;
   name?: string;
@@ -82,14 +99,17 @@ export interface FilterProps {
 export interface SearchFilterProps {
   placeholder?: string;
   inputClass?: string;
-  onChangeHandler: (value: string, event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeHandler: (
+    value: string,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => void;
   label?: string;
 }
 
 // Multi Select Dropdown component props
 export interface MultiSelectDropdownProps {
   label?: string;
-  onChangeHandler: (value: any) => void;
+  onChangeHandler: (value: any, event?: any) => void;
   data: DropdownOption[];
   placeholder?: string;
   isOpen?: boolean;
@@ -117,7 +137,10 @@ export interface DetailPageProps {
 
 // Event handler types
 export type ClickHandler = () => void;
-export type ChangeHandler = (value: string, event: React.ChangeEvent<HTMLInputElement>) => void;
+export type ChangeHandler = (
+  value: string,
+  event: React.ChangeEvent<HTMLInputElement>
+) => void;
 export type SubmitHandler = (event: React.FormEvent<HTMLFormElement>) => void;
 export type KeyDownHandler = (event: React.KeyboardEvent) => void;
 
