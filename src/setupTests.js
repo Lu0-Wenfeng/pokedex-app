@@ -19,10 +19,6 @@ global.IntersectionObserver = class IntersectionObserver {
 // Mock ResizeObserver for components that use it
 global.ResizeObserver = global.IntersectionObserver;
 
-// Mock fetch for API calls
-// eslint-disable-next-line no-undef
-global.fetch = jest.fn();
-
 // Mock window.matchMedia for responsive components
 Object.defineProperty(window, 'matchMedia', {
   writable: true,

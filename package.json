@@ -94,6 +94,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-storybook": "^9.0.18",
     "eslint-plugin-testing-library": "^5.6.0",
+    "msw": "^2.10.4",
     "prettier": "^3.6.2",
     "prop-types": "^15.8.1",
     "storybook": "^9.0.18",

@@ -21,27 +21,23 @@ module.exports = {
   },
 
   // File extensions to consider
-  moduleFileExtensions: [
-    'js',
-    'jsx',
-    'ts',
-    'tsx',
-    'json',
-    'node'
-  ],
+  moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json', 'node'],
 
   // Transform files
   transform: {
-    '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', {
-      presets: [
-        ['@babel/preset-env', { targets: { node: 'current' } }],
-        ['@babel/preset-react', { runtime: 'automatic' }],
-        '@babel/preset-typescript'
-      ]
-    }],
+    '^.+\\.(js|jsx|ts|tsx)$': [
+      'babel-jest',
+      {
+        presets: [
+          ['@babel/preset-env', { targets: { node: 'current' } }],
+          ['@babel/preset-react', { runtime: 'automatic' }],
+          '@babel/preset-typescript',
+        ],
+      },
+    ],
     '^.+\\.css$': 'jest-transform-css',
     '^.+\\.scss$': 'jest-transform-css',
-    '^(?!.*\\.(js|jsx|ts|tsx|css|scss|json)$)': 'jest-transform-file'
+    '^(?!.*\\.(js|jsx|ts|tsx|css|scss|json)$)': 'jest-transform-file',
   },
 
   // Files to ignore during transformation
@@ -53,14 +49,14 @@ module.exports = {
   // Test file patterns
   testMatch: [
     '<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}',
-    '<rootDir>/src/**/*.(test|spec).{js,jsx,ts,tsx}'
+    '<rootDir>/src/**/*.(test|spec).{js,jsx,ts,tsx}',
   ],
 
   // Files to ignore
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',
     '<rootDir>/build/',
-    '<rootDir>/dist/'
+    '<rootDir>/dist/',
   ],
 
   // Coverage configuration
@@ -71,8 +67,12 @@ module.exports = {
     '!src/reportWebVitals.js',
     '!src/setupTests.js',
     '!src/**/*.stories.{js,jsx,ts,tsx}',
+    '!src/**/*.stories.js',
+    '!src/**/*.stories.jsx',
+    '!src/**/*.stories.ts',
+    '!src/**/*.stories.tsx',
     '!src/**/__tests__/**',
-    '!src/**/node_modules/**'
+    '!src/**/node_modules/**',
   ],
 
   // Coverage thresholds
@@ -81,17 +81,12 @@ module.exports = {
       branches: 70,
       functions: 70,
       lines: 70,
-      statements: 70
-    }
+      statements: 70,
+    },
   },
 
   // Coverage reporters
-  coverageReporters: [
-    'text',
-    'lcov',
-    'html',
-    'json-summary'
-  ],
+  coverageReporters: ['text', 'lcov', 'html', 'json-summary'],
 
   // Coverage directory
   coverageDirectory: 'coverage',
@@ -118,29 +113,25 @@ module.exports = {
   // Watch plugins
   watchPlugins: [
     'jest-watch-typeahead/filename',
-    'jest-watch-typeahead/testname'
+    'jest-watch-typeahead/testname',
   ],
 
   // Error handling
   errorOnDeprecated: true,
 
   // Module directories
-  moduleDirectories: [
-    'node_modules',
-    '<rootDir>/src'
-  ],
+  moduleDirectories: ['node_modules', '<rootDir>/src'],
 
   // Snapshot serializers
   snapshotSerializers: [],
 
   // Custom matchers
-  setupFilesAfterEnv: [
-    '<rootDir>/src/setupTests.js'
-  ],
+  setupFilesAfterEnv: ['<rootDir>/src/setupTests.js'],
 
   // Handle static assets
   moduleNameMapping: {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
-    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/src/__mocks__/fileMock.js'
-  }
+    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
+      '<rootDir>/src/__mocks__/fileMock.js',
+  },
 };

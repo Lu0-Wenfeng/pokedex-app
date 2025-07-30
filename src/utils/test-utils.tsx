@@ -1,10 +1,10 @@
+import type { Pokemon, PokemonSpecies } from '@app-types/pokemon.types';
+import { PokemonProvider } from '@context/pokemonContext/pokemon.provider';
 import type { RenderOptions } from '@testing-library/react';
 import { render } from '@testing-library/react';
 import type { ReactElement } from 'react';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { PokemonProvider } from '@context/pokemonContext/pokemon.provider';
-import type { Pokemon, PokemonSpecies } from '@app-types/pokemon.types';
 
 // Mock data for testing
 export const mockPokemon: Pokemon = {
@@ -268,12 +268,30 @@ const AllTheProviders: React.FC<{
   </BrowserRouter>
 );
 
+// Provider without router for testing components that already have a router (like App)
+const ProvidersWithoutRouter: React.FC<{
+  children: React.ReactNode;
+}> = ({ children }) => <PokemonProvider>{children}</PokemonProvider>;
+
 const customRender = (ui: ReactElement, options?: CustomRenderOptions) => {
   const { initialEntries: initialEntriesUnused, ...renderOptions } =
     options ?? {};
 
   return render(ui, {
     wrapper: ({ children }) => <AllTheProviders>{children}</AllTheProviders>,
+    ...renderOptions,
+  });
+};
+
+// Custom render for App component that already has a router
+const renderApp = (ui: ReactElement, options?: CustomRenderOptions) => {
+  const { initialEntries: initialEntriesUnused, ...renderOptions } =
+    options ?? {};
+
+  return render(ui, {
+    wrapper: ({ children }) => (
+      <ProvidersWithoutRouter>{children}</ProvidersWithoutRouter>
+    ),
     ...renderOptions,
   });
 };
@@ -316,4 +334,4 @@ export const mockApiResponses = {
 
 // Re-export everything
 export * from '@testing-library/react';
-export { customRender as render };
+export { customRender as render, renderApp };

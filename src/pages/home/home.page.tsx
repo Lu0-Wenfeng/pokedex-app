@@ -55,65 +55,69 @@ const HomePage: React.FC<HomePageProps> = () => {
 
   return (
     <div className="home-container">
-      <div>
-        <Header className="header-container">
-          <Row className="app-header-wrap show-grid">
-            <Col xs={12} sm={12} lg={5} xl={5}>
-              <div className="header-title">
-                <h3>Pokédex</h3>
-              </div>
-            </Col>
-            <Col xs={12} sm={12} lg={2} xl={2} className="hide">
-              <div className="header-horizontal-line" />
-            </Col>
-            <Col xs={24} sm={24} lg={20} xl={20}>
-              <div className="subheading">
-                <span>Search for any Pokémon that exist on the planet</span>
-              </div>
-            </Col>
-          </Row>
-        </Header>
+      <main role="main">
         <div>
-          <AppFilter isFilterEnable={isFilterEnableHandler} />
-        </div>
-      </div>
-
-      {pokemonsList.length > 0 && (
-        <div>
-          <div className="card-list">{pokemonsListView}</div>
+          <Header className="header-container">
+            <Row className="app-header-wrap show-grid">
+              <Col xs={12} sm={12} lg={5} xl={5}>
+                <div className="header-title">
+                  <h3>Pokédex</h3>
+                </div>
+              </Col>
+              <Col xs={12} sm={12} lg={2} xl={2} className="hide">
+                <div className="header-horizontal-line" />
+              </Col>
+              <Col xs={24} sm={24} lg={20} xl={20}>
+                <div className="subheading">
+                  <span>Search for any Pokémon that exist on the planet</span>
+                </div>
+              </Col>
+            </Row>
+          </Header>
           <div>
-            {isLoadMoreInprogress && <Apploader className="loadmore-loader" />}
+            <AppFilter isFilterEnable={isFilterEnableHandler} />
           </div>
         </div>
-      )}
 
-      {/* Show Load More button when not filtering and not loading */}
-      {!isFilterEnable && !isLoading && (
-        <div className="load-more-wrap">
-          <Button appearance="link" onClick={handleLoadMoreClick}>
-            Load more
-          </Button>
-        </div>
-      )}
-
-      {!pokemonsList.length && (
-        <div className="no-data-found">
-          <span>No data found</span>
-        </div>
-      )}
-
-      {isLoading && <Apploader className="app-loader-wrapper" />}
-
-      <div>
-        {isCardSelected && pokemonId && (
-          <DetailPage
-            isCardSelected={isCardSelected}
-            toggleModal={toggleModal}
-            pokemonId={pokemonId}
-            offset={pokemonsList.length}
-          />
+        {pokemonsList.length > 0 && (
+          <div>
+            <div className="card-list">{pokemonsListView}</div>
+            <div>
+              {isLoadMoreInprogress && (
+                <Apploader className="loadmore-loader" />
+              )}
+            </div>
+          </div>
         )}
-      </div>
+
+        {/* Show Load More button when not filtering and not loading */}
+        {!isFilterEnable && !isLoading && (
+          <div className="load-more-wrap">
+            <Button appearance="link" onClick={handleLoadMoreClick}>
+              Load more
+            </Button>
+          </div>
+        )}
+
+        {!pokemonsList.length && (
+          <div className="no-data-found">
+            <span>No data found</span>
+          </div>
+        )}
+
+        {isLoading && <Apploader className="app-loader-wrapper" />}
+
+        <div>
+          {isCardSelected && pokemonId && (
+            <DetailPage
+              isCardSelected={isCardSelected}
+              toggleModal={toggleModal}
+              pokemonId={pokemonId}
+              offset={pokemonsList.length}
+            />
+          )}
+        </div>
+      </main>
     </div>
   );
 };
