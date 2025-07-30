@@ -159,3 +159,5 @@ export const PokemonProvider: React.FC<PokemonProviderProps> = ({
     </PokemonContext.Provider>
   );
 };
+
+export default PokemonProvider;
