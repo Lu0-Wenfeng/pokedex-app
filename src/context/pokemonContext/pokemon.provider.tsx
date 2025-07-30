@@ -111,7 +111,7 @@ export const PokemonProvider: React.FC<PokemonProviderProps> = ({
     } catch (error) {
       console.error("Error fetching all Pokemon data:", error);
     }
-  }, [dispatch]);
+  }, []);
 
   const setPokemonList = (pokemonsList: Pokemon[]): void => {
     dispatch({
@@ -128,7 +128,7 @@ export const PokemonProvider: React.FC<PokemonProviderProps> = ({
     };
 
     initializeData();
-  }, [getPokemonData, setAppLoading, getAllPokemonDataList]);
+  }, []);
 
   const contextValue: PokemonContextValue = {
     state,
