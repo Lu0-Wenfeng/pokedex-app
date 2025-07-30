@@ -115,15 +115,21 @@ export const getPokcolor = (type: string): string => {
 
 export const getBackground = (pokemonTypes: PokemonType[]): string => {
   let color = "";
-  if (pokemonTypes.length) {
+  if (pokemonTypes.length > 0) {
+    const firstType = pokemonTypes[0];
+    if (!firstType) return "";
+
     const {
       type: { name: pokemontype1 },
-    } = pokemonTypes[0];
+    } = firstType;
 
     if (pokemonTypes.length > 1) {
+      const secondType = pokemonTypes[1];
+      if (!secondType) return getPokcolor(pokemontype1);
+
       const {
         type: { name: pokemontype2 },
-      } = pokemonTypes[1];
+      } = secondType;
       color = `linear-gradient(180deg, ${getPokcolor(
         pokemontype1
       )} 0%, ${getPokcolor(pokemontype2)} 100%)`;
