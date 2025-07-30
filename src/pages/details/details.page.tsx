@@ -26,9 +26,9 @@ const DetailPage: React.FC<DetailPageProps> = ({
   const [currentPokemonId, setCurrentPokemonId] = useState<number>(pokemonId);
   const [data, setPokemonData] = useState<Pokemon | null>(null);
   const [isDetailLoading, setLoading] = useState<boolean>(true);
-  const [isModalOpen, setCloseModal] = useState<boolean>(isCardSelected);
+
   const [pokemonSpeciesData, setPokemonSpeciesData] =
-    useState<PokemonSpecies | null>(null);
+    useState<PokemonSpecies>();
   const [pokemonTypeData, setPokemonTypeData] =
     useState<PokemonTypeData | null>(null);
 
@@ -60,7 +60,7 @@ const DetailPage: React.FC<DetailPageProps> = ({
     setPokemonDetails();
   }, [currentPokemonId]);
 
-  const handleForwordClick = (): void => {
+  const handleForwardClick = (): void => {
     if (currentPokemonId === offset) return;
     setCurrentPokemonId(currentPokemonId + 1);
   };
@@ -71,14 +71,14 @@ const DetailPage: React.FC<DetailPageProps> = ({
   };
 
   const closePopUp = (): void => {
-    setCloseModal(false);
+    toggleModal();
   };
 
   return (
     <Modal
       dialogClassName={"details-modal-container"}
       size={"md"}
-      open={isModalOpen}
+      open={isCardSelected}
       onClose={handleClose}
       onExited={() => {
         setPokemonData(null);
@@ -99,8 +99,10 @@ const DetailPage: React.FC<DetailPageProps> = ({
               <div>
                 <DetailsHeader
                   data={data}
-                  speciesData={pokemonSpeciesData || undefined}
-                  forwordClick={handleForwordClick}
+                  {...(pokemonSpeciesData && {
+                    speciesData: pokemonSpeciesData,
+                  })}
+                  forwardClick={handleForwardClick}
                   backClick={handleBackwordClick}
                   closeClick={closePopUp}
                 />
@@ -109,7 +111,9 @@ const DetailPage: React.FC<DetailPageProps> = ({
             <div className="padding-components">
               {pokemonTypeData && (
                 <PropertyCard
-                  speciesData={pokemonSpeciesData || undefined}
+                  {...(pokemonSpeciesData && {
+                    speciesData: pokemonSpeciesData,
+                  })}
                   data={data}
                   pokemonTypeData={pokemonTypeData}
                 />

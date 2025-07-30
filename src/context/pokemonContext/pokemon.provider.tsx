@@ -17,6 +17,7 @@ export const PokemonProvider: React.FC<PokemonProviderProps> = ({
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const batchURL = useRef<string | null>(initialURL);
+  const isLoadingRef = useRef<boolean>(false);
 
   const setAppLoading = (loading: boolean): void => {
     dispatch({
@@ -34,12 +35,15 @@ export const PokemonProvider: React.FC<PokemonProviderProps> = ({
 
   const getPokemonData = useCallback(
     async (isReset: boolean = false): Promise<void> => {
+      if (isLoadingRef.current) return; // Prevent multiple simultaneous calls
+
       if (isReset) {
         batchURL.current = initialURL;
       }
       if (!batchURL.current) return;
 
       try {
+        isLoadingRef.current = true;
         setLoadMoreDataInprogress(true);
         const resp = await fetch(batchURL.current);
 
@@ -56,6 +60,7 @@ export const PokemonProvider: React.FC<PokemonProviderProps> = ({
       } catch (error) {
         console.error("Error fetching Pokemon data:", error);
       } finally {
+        isLoadingRef.current = false;
         setLoadMoreDataInprogress(false);
       }
     },
@@ -88,7 +93,7 @@ export const PokemonProvider: React.FC<PokemonProviderProps> = ({
     []
   );
 
-  const getAllPokemonDataList = async (): Promise<void> => {
+  const getAllPokemonDataList = useCallback(async (): Promise<void> => {
     try {
       const resp = await fetch(allPokemonURL);
 
@@ -106,7 +111,7 @@ export const PokemonProvider: React.FC<PokemonProviderProps> = ({
     } catch (error) {
       console.error("Error fetching all Pokemon data:", error);
     }
-  };
+  }, [dispatch]);
 
   const setPokemonList = (pokemonsList: Pokemon[]): void => {
     dispatch({
@@ -118,14 +123,12 @@ export const PokemonProvider: React.FC<PokemonProviderProps> = ({
   useEffect(() => {
     const initializeData = async (): Promise<void> => {
       await getPokemonData();
-      if (state.isLoading) {
-        setAppLoading(false);
-      }
+      setAppLoading(false);
       await getAllPokemonDataList();
     };
 
     initializeData();
-  }, [getPokemonData, setAppLoading]);
+  }, [getPokemonData, setAppLoading, getAllPokemonDataList]);
 
   const contextValue: PokemonContextValue = {
     state,

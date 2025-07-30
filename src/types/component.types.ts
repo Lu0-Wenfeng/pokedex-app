@@ -37,7 +37,7 @@ export interface DetailsHeaderProps {
   speciesData?: PokemonSpecies;
   backClick?: () => void;
   closeClick?: () => void;
-  forwordClick?: () => void;
+  forwardClick?: () => void;
 }
 
 // Property Card component props
@@ -116,6 +116,7 @@ export interface MultiSelectDropdownProps {
   onOpenHandler?: () => void;
   onCloseHandler?: () => void;
   onCleanHandler?: (event?: any) => void;
+  className?: string;
 }
 
 export interface DropdownOption {

@@ -83,13 +83,15 @@ const HomePage: React.FC<HomePageProps> = () => {
           <div>
             {isLoadMoreInprogress && <Apploader className="loadmore-loader" />}
           </div>
-          {!isFilterEnable && (
-            <div className="load-more-wrap">
-              <Button appearance="link" onClick={handleLoadMoreClick}>
-                Load more
-              </Button>
-            </div>
-          )}
+        </div>
+      )}
+
+      {/* Show Load More button when not filtering and not loading */}
+      {!isFilterEnable && !isLoading && (
+        <div className="load-more-wrap">
+          <Button appearance="link" onClick={handleLoadMoreClick}>
+            Load more
+          </Button>
         </div>
       )}
 

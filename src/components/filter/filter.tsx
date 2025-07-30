@@ -83,7 +83,7 @@ const AppFilter: React.FC<FilterProps> = ({ isFilterEnable }) => {
       isFilterEnable(false);
     }
 
-    data$.subscribe((pokemanList: PokemonListItem[]) => {
+    const subscription = data$.subscribe((pokemanList: PokemonListItem[]) => {
       let filteredList = pokemanList;
       if (filteredList.length > SEARCH_SLICED) {
         filteredList = filteredList.slice(0, SEARCH_SLICED);
@@ -92,6 +92,11 @@ const AppFilter: React.FC<FilterProps> = ({ isFilterEnable }) => {
         filterPokemonData(res);
       });
     });
+
+    // Cleanup subscription after a short delay to allow data processing
+    setTimeout(() => {
+      subscription.unsubscribe();
+    }, 1000);
     setAppLoading(false);
   };
 
