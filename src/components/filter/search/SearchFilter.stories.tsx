@@ -94,7 +94,7 @@ export const Default: Story = {
   args: {
     placeholder: "Search Pokemon...",
     label: "Search",
-    onChangeHandler: (value, event) => console.log("Search value:", value),
+    onChangeHandler: (value, _event) => console.log("Search value:", value),
   },
 };
 
@@ -104,7 +104,7 @@ export const PokemonSearch: Story = {
     placeholder: "Name or Number",
     label: "Search By",
     inputClass: "pokemon-search-filter",
-    onChangeHandler: (value, event) => console.log("Pokemon search:", value),
+    onChangeHandler: (value, _event) => console.log("Pokemon search:", value),
   },
 };
 
@@ -112,7 +112,7 @@ export const WithoutLabel: Story = {
   render: (args) => <SearchFilterWrapper {...args} />,
   args: {
     placeholder: "Type to search...",
-    onChangeHandler: (value, event) =>
+    onChangeHandler: (value, _event) =>
       console.log("Search without label:", value),
   },
 };
@@ -122,7 +122,7 @@ export const CustomPlaceholder: Story = {
   args: {
     placeholder: "Enter Pokemon name, type, or ID...",
     label: "Advanced Search",
-    onChangeHandler: (value, event) => console.log("Advanced search:", value),
+    onChangeHandler: (value, _event) => console.log("Advanced search:", value),
   },
 };
 
@@ -132,7 +132,7 @@ export const WithCustomClass: Story = {
     placeholder: "Search with custom styling",
     label: "Custom Search",
     inputClass: "custom-search-input",
-    onChangeHandler: (value, event) => console.log("Custom search:", value),
+    onChangeHandler: (value, _event) => console.log("Custom search:", value),
   },
 };
 
@@ -141,7 +141,8 @@ export const LongLabel: Story = {
   args: {
     placeholder: "Search...",
     label: "Search for your favorite Pokemon by name, number, or type",
-    onChangeHandler: (value, event) => console.log("Long label search:", value),
+    onChangeHandler: (value, _event) =>
+      console.log("Long label search:", value),
   },
 };
 
@@ -149,7 +150,7 @@ export const EmptyPlaceholder: Story = {
   render: (args) => <SearchFilterWrapper {...args} />,
   args: {
     label: "Search",
-    onChangeHandler: (value, event) =>
+    onChangeHandler: (value, _event) =>
       console.log("Empty placeholder search:", value),
   },
 };
@@ -159,6 +160,6 @@ export const Static: Story = {
   args: {
     placeholder: "Static search field",
     label: "Static Search",
-    onChangeHandler: (value, event) => console.log("Static search:", value),
+    onChangeHandler: (value, _event) => console.log("Static search:", value),
   },
 };
