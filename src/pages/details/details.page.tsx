@@ -1,21 +1,21 @@
-import { DetailPageProps } from "@app-types/component.types";
-import {
+import React, { useEffect, useState } from 'react';
+import { Loader, Modal, Placeholder } from 'rsuite';
+import type { DetailPageProps } from '@app-types/component.types';
+import type {
   Pokemon,
   PokemonSpecies,
   PokemonTypeData,
-} from "@app-types/pokemon.types";
-import DetailsHeader from "@components/pokemonDetailsCard/detailsHeader/detailsHeader";
-import EvolutionChainCard from "@components/pokemonDetailsCard/evolutionChainCard/evolutionChainCard";
-import PropertyCard from "@components/pokemonDetailsCard/propertyCard/propertyCard";
-import StatCard from "@components/pokemonDetailsCard/statCard/statCard";
+} from '@app-types/pokemon.types';
+import DetailsHeader from '@components/pokemonDetailsCard/detailsHeader/detailsHeader';
+import EvolutionChainCard from '@components/pokemonDetailsCard/evolutionChainCard/evolutionChainCard';
+import PropertyCard from '@components/pokemonDetailsCard/propertyCard/propertyCard';
+import StatCard from '@components/pokemonDetailsCard/statCard/statCard';
 import {
   getPokemonDataById,
   getPokemonTypesById,
   getSpeciesDataById,
-} from "@services/common.service";
-import React, { useEffect, useState } from "react";
-import { Loader, Modal, Placeholder } from "rsuite";
-import "./details.page.scss";
+} from '@services/common.service';
+import './details.page.scss';
 
 const DetailPage: React.FC<DetailPageProps> = ({
   isCardSelected,
@@ -46,13 +46,14 @@ const DetailPage: React.FC<DetailPageProps> = ({
         setPokemonData(response);
         setLoading(false);
 
-        const pokemonSpeciesData = await getSpeciesDataById(currentPokemonId);
-        setPokemonSpeciesData(pokemonSpeciesData);
+        const speciesResponse = await getSpeciesDataById(currentPokemonId);
+        setPokemonSpeciesData(speciesResponse);
 
-        const pokemonTypeData = await getPokemonTypesById(currentPokemonId);
-        setPokemonTypeData(pokemonTypeData);
+        const typeResponse = await getPokemonTypesById(currentPokemonId);
+        setPokemonTypeData(typeResponse);
       } catch (error) {
-        console.error("Error fetching Pokemon details:", error);
+        // eslint-disable-next-line no-console
+        console.error('Error fetching Pokemon details:', error);
         setLoading(false);
       }
     };
@@ -76,8 +77,8 @@ const DetailPage: React.FC<DetailPageProps> = ({
 
   return (
     <Modal
-      dialogClassName={"details-modal-container"}
-      size={"md"}
+      dialogClassName="details-modal-container"
+      size="md"
       open={isCardSelected}
       onClose={handleClose}
       onExited={() => {
@@ -131,7 +132,7 @@ const DetailPage: React.FC<DetailPageProps> = ({
           </Modal.Body>
         </div>
       ) : (
-        <div style={{ textAlign: "center" }}>
+        <div style={{ textAlign: 'center' }}>
           <Loader size="md" />
         </div>
       )}

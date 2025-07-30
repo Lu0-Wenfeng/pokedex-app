@@ -1,12 +1,12 @@
 // Component prop interfaces for TypeScript conversion
 
-import React from "react";
-import {
+import type React from 'react';
+import type {
   Pokemon,
   PokemonSpecies,
   PokemonStat,
   PokemonTypeData,
-} from "./pokemon.types";
+} from './pokemon.types';
 
 // Common component props
 export interface BaseComponentProps {
@@ -67,18 +67,18 @@ export interface ColorfulTagProps {
 // Tooltip component props
 export interface TooltipProps {
   placement?:
-    | "top"
-    | "bottom"
-    | "left"
-    | "right"
-    | "topStart"
-    | "topEnd"
-    | "bottomStart"
-    | "bottomEnd"
-    | "leftStart"
-    | "leftEnd"
-    | "rightStart"
-    | "rightEnd";
+    | 'top'
+    | 'bottom'
+    | 'left'
+    | 'right'
+    | 'topStart'
+    | 'topEnd'
+    | 'bottomStart'
+    | 'bottomEnd'
+    | 'leftStart'
+    | 'leftEnd'
+    | 'rightStart'
+    | 'rightEnd';
   data: any;
   className?: string;
   name?: string;
@@ -92,7 +92,7 @@ export interface DefaultPopoverProps {
 
 // Filter component props
 export interface FilterProps {
-  isFilterEnable: (isEnable: boolean) => void;
+  isFilterEnable?: (isEnable: boolean) => void;
 }
 
 // Search Filter component props
@@ -125,6 +125,7 @@ export interface DropdownOption {
 }
 
 // Page component props
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface HomePageProps {
   // No specific props for HomePage
 }

@@ -1,16 +1,16 @@
-import {
+import React, { useCallback, useEffect, useReducer, useRef } from 'react';
+import type {
   PokemonContextValue,
   PokemonProviderProps,
-} from "@app-types/context.types";
-import {
+} from '@app-types/context.types';
+import type {
   Pokemon,
   PokemonListItem,
   PokemonListResponse,
-} from "@app-types/pokemon.types";
-import { allPokemonURL, initialURL } from "@services/common.service";
-import { initialState, reducer } from "@store/reducers/reducer";
-import React, { useCallback, useEffect, useReducer, useRef } from "react";
-import PokemonContext from "./pokmon.context";
+} from '@app-types/pokemon.types';
+import { allPokemonURL, initialURL } from '@services/common.service';
+import { initialState, reducer } from '@store/reducers/reducer';
+import PokemonContext from './pokmon.context';
 
 export const PokemonProvider: React.FC<PokemonProviderProps> = ({
   children,
@@ -19,19 +19,62 @@ export const PokemonProvider: React.FC<PokemonProviderProps> = ({
   const batchURL = useRef<string | null>(initialURL);
   const isLoadingRef = useRef<boolean>(false);
 
-  const setAppLoading = (loading: boolean): void => {
-    dispatch({
-      type: "ACTIONS.SET_API_CALL_INPROGRESS",
-      payload: loading,
-    });
-  };
+  const setAppLoading = useCallback(
+    (loading: boolean): void => {
+      dispatch({
+        type: 'ACTIONS.SET_API_CALL_INPROGRESS',
+        payload: loading,
+      });
+    },
+    [dispatch]
+  );
 
-  const setLoadMoreDataInprogress = (loading: boolean): void => {
-    dispatch({
-      type: "ACTIONS.SET_LOAD_MORE_API_CALL_INPROGRESS",
-      payload: loading,
-    });
-  };
+  const setLoadMoreDataInprogress = useCallback(
+    (loading: boolean): void => {
+      dispatch({
+        type: 'ACTIONS.SET_LOAD_MORE_API_CALL_INPROGRESS',
+        payload: loading,
+      });
+    },
+    [dispatch]
+  );
+
+  const setPokemonList = useCallback(
+    (pokemonsList: Pokemon[]): void => {
+      dispatch({
+        type: 'ACTIONS.SET_POKEMON_LIST',
+        payload: pokemonsList,
+      });
+    },
+    [dispatch]
+  );
+
+  const getPokemonDetailsListByUrl = useCallback(
+    async (results: PokemonListItem[]): Promise<Pokemon[]> => {
+      try {
+        const pokemonsDetailsList = await Promise.all(
+          results.map(async (pokemon: PokemonListItem): Promise<Pokemon> => {
+            const response = await fetch(pokemon.url);
+
+            if (!response.ok) {
+              throw new Error(
+                `Failed to fetch Pokemon details: ${response.statusText}`
+              );
+            }
+
+            const res: Pokemon = await response.json();
+            return res;
+          })
+        );
+        return pokemonsDetailsList;
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error('Error fetching Pokemon details:', error);
+        return [];
+      }
+    },
+    []
+  );
 
   const getPokemonData = useCallback(
     async (isReset: boolean = false): Promise<void> => {
@@ -58,39 +101,14 @@ export const PokemonProvider: React.FC<PokemonProviderProps> = ({
         const pokemonsList = await getPokemonDetailsListByUrl(results);
         setPokemonList(pokemonsList);
       } catch (error) {
-        console.error("Error fetching Pokemon data:", error);
+        // eslint-disable-next-line no-console
+        console.error('Error fetching Pokemon data:', error);
       } finally {
         isLoadingRef.current = false;
         setLoadMoreDataInprogress(false);
       }
     },
-    []
-  );
-
-  const getPokemonDetailsListByUrl = useCallback(
-    async (results: PokemonListItem[]): Promise<Pokemon[]> => {
-      try {
-        const pokemonsDetailsList = await Promise.all(
-          results.map(async (pokemon: PokemonListItem): Promise<Pokemon> => {
-            const response = await fetch(pokemon.url);
-
-            if (!response.ok) {
-              throw new Error(
-                `Failed to fetch Pokemon details: ${response.statusText}`
-              );
-            }
-
-            const res: Pokemon = await response.json();
-            return res;
-          })
-        );
-        return pokemonsDetailsList;
-      } catch (error) {
-        console.error("Error fetching Pokemon details:", error);
-        return [];
-      }
-    },
-    []
+    [getPokemonDetailsListByUrl, setLoadMoreDataInprogress, setPokemonList]
   );
 
   const getAllPokemonDataList = useCallback(async (): Promise<void> => {
@@ -105,20 +123,14 @@ export const PokemonProvider: React.FC<PokemonProviderProps> = ({
       const { results } = data;
 
       dispatch({
-        type: "ACTIONS.SET_ALL_POKEMON_LIST",
+        type: 'ACTIONS.SET_ALL_POKEMON_LIST',
         payload: results,
       });
     } catch (error) {
-      console.error("Error fetching all Pokemon data:", error);
+      // eslint-disable-next-line no-console
+      console.error('Error fetching all Pokemon data:', error);
     }
   }, []);
-
-  const setPokemonList = (pokemonsList: Pokemon[]): void => {
-    dispatch({
-      type: "ACTIONS.SET_POKEMON_LIST",
-      payload: pokemonsList,
-    });
-  };
 
   useEffect(() => {
     const initializeData = async (): Promise<void> => {
@@ -128,15 +140,18 @@ export const PokemonProvider: React.FC<PokemonProviderProps> = ({
     };
 
     initializeData();
-  }, []);
+  }, [getAllPokemonDataList, getPokemonData, setAppLoading]);
 
-  const contextValue: PokemonContextValue = {
-    state,
-    dispatch,
-    getPokemonData,
-    getPokemonDetailsListByUrl,
-    setAppLoading,
-  };
+  const contextValue: PokemonContextValue = React.useMemo(
+    () => ({
+      state,
+      dispatch,
+      getPokemonData,
+      getPokemonDetailsListByUrl,
+      setAppLoading,
+    }),
+    [state, dispatch, getPokemonData, getPokemonDetailsListByUrl, setAppLoading]
+  );
 
   return (
     <PokemonContext.Provider value={contextValue}>

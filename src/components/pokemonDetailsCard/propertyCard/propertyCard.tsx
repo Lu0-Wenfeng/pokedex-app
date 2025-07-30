@@ -1,23 +1,22 @@
-import { PropertyCardProps } from "@app-types/component.types";
-import ColorfulTag from "@components/pokemonDetailsCard/colorfulTags/colorfulTag";
-import { getCamleCaseString } from "@constants/pokemon.types";
-import "@styles/common.scss";
-import React from "react";
-import { Col, Grid, Row } from "rsuite";
-import "./propertyCard.scss";
+/* eslint-disable import/order */
+import type { PropertyCardProps } from '@app-types/component.types';
+import ColorfulTag from '@components/pokemonDetailsCard/colorfulTags/colorfulTag';
+import { getCamleCaseString } from '@constants/pokemon.types';
+import '@styles/common.scss';
+import React from 'react';
+import { Col, Grid, Row } from 'rsuite';
+import './propertyCard.scss';
 
 const PropertyCard: React.FC<PropertyCardProps> = ({
   speciesData,
   data,
   pokemonTypeData,
 }) => {
-  const formatWeight = (weight: number): string => {
-    return `${(weight / 10).toFixed(1)} Kg`;
-  };
+  const formatWeight = (weight: number): string =>
+    `${(weight / 10).toFixed(1)} Kg`;
 
-  const formatHeight = (height: number): string => {
-    return `${(height / 10).toFixed(1)} m`;
-  };
+  const formatHeight = (height: number): string =>
+    `${(height / 10).toFixed(1)} m`;
 
   return (
     <div className="property-container">
@@ -91,10 +90,10 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
               <div className="prop-header-data">
                 <div className="type-wrap">
                   {data.types.length &&
-                    data.types.map((item, index) => (
+                    data.types.map(item => (
                       <ColorfulTag
                         className="pr-1"
-                        key={`${item.type.name}-${index}`}
+                        key={item.type.name}
                         type={item.type.name}
                         text={getCamleCaseString(item.type.name)}
                       />
@@ -112,9 +111,9 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
                 {pokemonTypeData?.damage_relations?.double_damage_from
                   ?.length &&
                   pokemonTypeData.damage_relations.double_damage_from.map(
-                    (item, index) => (
+                    item => (
                       <ColorfulTag
-                        key={`${item.name}-${index}`}
+                        key={item.name}
                         className="pr-1"
                         type={item.name}
                         text={getCamleCaseString(item.name)}

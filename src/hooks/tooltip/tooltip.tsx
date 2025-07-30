@@ -1,25 +1,26 @@
-import { DefaultPopoverProps, TooltipProps } from "@app-types/component.types";
-import React, { forwardRef } from "react";
-import { Popover, Whisper } from "rsuite";
+import React, { forwardRef } from 'react';
+import { Popover, Whisper } from 'rsuite';
+import type {
+  DefaultPopoverProps,
+  TooltipProps,
+} from '@app-types/component.types';
 
 // eslint-disable-next-line react/display-name
 const DefaultPopover = forwardRef<HTMLDivElement, DefaultPopoverProps>(
-  ({ content, className, ...props }, ref) => {
-    return (
-      <Popover
-        ref={ref}
-        {...props}
-        {...(className && { className })}
-        arrow={false}
-      >
-        <p>{content}</p>
-      </Popover>
-    );
-  }
+  ({ content, className, ...props }, ref) => (
+    <Popover
+      ref={ref}
+      {...props}
+      {...(className && { className })}
+      arrow={false}
+    >
+      <p>{content}</p>
+    </Popover>
+  )
 );
 
 const AppTooltip: React.FC<TooltipProps> = ({
-  placement = "bottom",
+  placement = 'bottom',
   data,
   className,
   name,

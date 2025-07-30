@@ -1,72 +1,152 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true,
-        "node": true
-    },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:jsx-a11y/recommended",
-        "plugin:storybook/recommended"
-    ],
-    "parser": "@typescript-eslint/parser",
-    "settings": {
-        "react": {
-            "version": "detect"
-        }
-    },
-    "overrides": [
-        {
-            "files": [
-                "**/*.test.js",
-                "**/*.test.jsx",
-                "**/*.test.ts",
-                "**/*.test.tsx"
-            ],
-            "env": {
-                "jest": true
-            }
-        },
-        {
-            "files": [
-                "**/*.ts",
-                "**/*.tsx"
-            ],
-            "rules": {
-                "@typescript-eslint/no-unused-vars": "off",
-                "@typescript-eslint/no-explicit-any": "off",
-                "no-unused-vars": "off",
-                "no-console": "off"
-            }
-        },
-        {
-            "files": [
-                "**/*.stories.*"
-            ],
-            "rules": {
-                "import/no-anonymous-default-export": "off",
-                "react/react-in-jsx-scope": "off",
-                "react/no-unescaped-entities": "off"
-            }
-        }
-    ],
-    "parserOptions": {
-        "ecmaVersion": "latest",
-        "sourceType": "module",
-        "ecmaFeatures": {
-            "jsx": true
-        }
-    },
-    "plugins": [
-        "react",
-        "jsx-a11y",
-        "testing-library",
-        "@typescript-eslint"
-    ],
-    "rules": {
-        "no-console": 1,
-        "@typescript-eslint/no-unused-vars": "off",
-        "@typescript-eslint/no-explicit-any": "off"
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "airbnb",
+    "airbnb-typescript",
+    "airbnb/hooks",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:storybook/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": "./tsconfig.json",
+    "ecmaFeatures": {
+      "jsx": true
     }
+  },
+  "plugins": [
+    "react",
+    "react-hooks",
+    "jsx-a11y",
+    "@typescript-eslint",
+    "import",
+    "prettier"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "./tsconfig.json"
+      }
+    }
+  },
+  "rules": {
+    // Disable problematic rules that aren't available
+    "@typescript-eslint/lines-between-class-members": "off",
+    "@typescript-eslint/no-throw-literal": "off",
+
+    // TypeScript specific overrides
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/prefer-nullish-coalescing": "error",
+    "@typescript-eslint/prefer-optional-chain": "error",
+    "@typescript-eslint/no-non-null-assertion": "error",
+    "@typescript-eslint/consistent-type-imports": "error",
+    "@typescript-eslint/no-empty-object-type": "warn",
+
+    // React specific overrides
+    "react/react-in-jsx-scope": "off",
+    "react/function-component-definition": [
+      "error",
+      {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
+      }
+    ],
+    "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off",
+    "react/prop-types": "off",
+
+    // Import/Export rules
+    "import/prefer-default-export": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "**/*.stories.*",
+          "**/*.test.*",
+          "**/*.spec.*",
+          "**/setupTests.*",
+          "**/craco.config.*"
+        ]
+      }
+    ],
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "pathGroups": [
+          {
+            "pattern": "@/**",
+            "group": "internal"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["builtin"],
+        "newlines-between": "never"
+      }
+    ],
+
+    // General code quality
+    "no-console": "warn",
+    "prefer-const": "error",
+    "no-var": "error",
+    "no-unused-vars": "off",
+    "prettier/prettier": "error"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.stories.*"],
+      "rules": {
+        "import/no-anonymous-default-export": "off",
+        "react/react-in-jsx-scope": "off",
+        "react/function-component-definition": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "no-console": "off",
+        "import/no-extraneous-dependencies": "off"
+      }
+    },
+    {
+      "files": ["**/*.test.*", "**/*.spec.*"],
+      "env": {
+        "jest": true
+      },
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off",
+        "import/no-extraneous-dependencies": "off"
+      }
+    },
+    {
+      "files": ["src/types/**/*.ts"],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "off",
+        "no-unused-vars": "off"
+      }
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off"
+      }
+    }
+  ]
 }

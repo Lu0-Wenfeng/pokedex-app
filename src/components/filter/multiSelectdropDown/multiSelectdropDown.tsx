@@ -1,9 +1,9 @@
-import { MultiSelectDropdownProps } from "@app-types/component.types";
-import React from "react";
-import { CheckPicker } from "rsuite";
-import "./multiSelectdropDown.scss";
+import React from 'react';
+import { CheckPicker } from 'rsuite';
+import type { MultiSelectDropdownProps } from '@app-types/component.types';
+import './multiSelectdropDown.scss';
 
-const AppMultiSelectDropDown: React.FC<MultiSelectDropdownProps> = ({
+const AppMultiSelectDropDown = ({
   label,
   onChangeHandler,
   data,
@@ -13,29 +13,27 @@ const AppMultiSelectDropDown: React.FC<MultiSelectDropdownProps> = ({
   onCloseHandler,
   onCleanHandler,
   ...props
-}) => {
-  return (
-    <div className="multiselect-dropdown-wrapper">
-      <div className="dropdown-label">
-        <span>{label}</span>
-      </div>
-      <div className={`${isOpen ? "is-dropdown-open" : ""} check-picker-wrap`}>
-        {React.createElement(CheckPicker as any, {
-          block: true,
-          placeholder: placeholder,
-          onChange: onChangeHandler,
-          size: "lg",
-          onOpen: onOpenHandler,
-          onClose: onCloseHandler,
-          onClean: onCleanHandler,
-          data: data,
-          searchable: false,
-          style: { width: 224 },
-          ...props,
-        })}
-      </div>
+}: MultiSelectDropdownProps) => (
+  <div className="multiselect-dropdown-wrapper">
+    <div className="dropdown-label">
+      <span>{label}</span>
     </div>
-  );
-};
+    <div className={`${isOpen ? 'is-dropdown-open' : ''} check-picker-wrap`}>
+      {React.createElement(CheckPicker as React.ComponentType<any>, {
+        block: true,
+        placeholder,
+        onChange: onChangeHandler,
+        size: 'lg',
+        onOpen: onOpenHandler,
+        onClose: onCloseHandler,
+        onClean: onCleanHandler,
+        data,
+        searchable: false,
+        style: { width: 224 },
+        ...props,
+      })}
+    </div>
+  </div>
+);
 
 export default AppMultiSelectDropDown;

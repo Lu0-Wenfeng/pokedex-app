@@ -1,15 +1,16 @@
-import { HomePageProps } from "@app-types/component.types";
-import { Pokemon } from "@app-types/pokemon.types";
-import AppFilter from "@components/filter/filter";
-import Header from "@components/header/header";
-import Apploader from "@components/loader/loader";
-import PokemonCard from "@components/pokemonCard/pokemonCard";
-import PokemonContext from "@context/pokemonContext/pokmon.context";
-import DetailPage from "@pages/details/details.page";
-import "@styles/common.scss";
-import React, { useContext, useMemo, useState } from "react";
-import { Button, Col, Row } from "rsuite";
-import "./home.scss";
+/* eslint-disable import/order */
+import type { HomePageProps } from '@app-types/component.types';
+import type { Pokemon } from '@app-types/pokemon.types';
+import AppFilter from '@components/filter/filter';
+import Header from '@components/header/header';
+import Apploader from '@components/loader/loader';
+import PokemonCard from '@components/pokemonCard/pokemonCard';
+import PokemonContext from '@context/pokemonContext/pokmon.context';
+import DetailPage from '@pages/details/details.page';
+import '@styles/common.scss';
+import React, { useContext, useMemo, useState } from 'react';
+import { Button, Col, Row } from 'rsuite';
+import './home.scss';
 
 const HomePage: React.FC<HomePageProps> = () => {
   const [isCardSelected, setToggleSelect] = useState<boolean>(false);
@@ -18,10 +19,14 @@ const HomePage: React.FC<HomePageProps> = () => {
 
   const context = useContext(PokemonContext);
   if (!context) {
-    throw new Error("HomePage must be used within a PokemonProvider");
+    throw new Error('HomePage must be used within a PokemonProvider');
   }
   const { state, getPokemonData } = context;
   const { pokemonsList, isLoading, isLoadMoreInprogress } = state;
+
+  const toggleModal = (): void => {
+    setToggleSelect(prevState => !prevState);
+  };
 
   const pokemonsListView = useMemo(
     () =>
@@ -44,10 +49,6 @@ const HomePage: React.FC<HomePageProps> = () => {
     getPokemonData();
   };
 
-  const toggleModal = (): void => {
-    setToggleSelect((prevState) => !prevState);
-  };
-
   const isFilterEnableHandler = (isEnable: boolean): void => {
     setIsFilterEnable(isEnable);
   };
@@ -63,7 +64,7 @@ const HomePage: React.FC<HomePageProps> = () => {
               </div>
             </Col>
             <Col xs={12} sm={12} lg={2} xl={2} className="hide">
-              <div className="header-horizontal-line"></div>
+              <div className="header-horizontal-line" />
             </Col>
             <Col xs={24} sm={24} lg={20} xl={20}>
               <div className="subheading">

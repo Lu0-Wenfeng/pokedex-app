@@ -23,84 +23,84 @@ export interface FlavorTextEntry {
 
 export const POKEMON_TYPE = {
   normal: {
-    color: "#DDCBD0",
-    hex: "",
+    color: '#DDCBD0',
+    hex: '',
   },
   fighting: {
-    color: "#FCC1B0",
-    hex: "",
+    color: '#FCC1B0',
+    hex: '',
   },
   flying: {
-    color: "#B2D2E8",
-    hex: "",
+    color: '#B2D2E8',
+    hex: '',
   },
   poison: {
-    color: "#CFB7ED",
-    hex: "",
+    color: '#CFB7ED',
+    hex: '',
   },
   ground: {
-    color: "#F4D1A6",
-    hex: "",
+    color: '#F4D1A6',
+    hex: '',
   },
   rock: {
-    color: "#C5AEA8",
-    hex: "",
+    color: '#C5AEA8',
+    hex: '',
   },
   bug: {
-    color: "#C1E0C8",
-    hex: "",
+    color: '#C1E0C8',
+    hex: '',
   },
   ghost: {
-    color: "#D7C2D7",
-    hex: "",
+    color: '#D7C2D7',
+    hex: '',
   },
   steel: {
-    color: "#C2D4CE",
-    hex: "",
+    color: '#C2D4CE',
+    hex: '',
   },
   fire: {
-    color: "#EDC2C4",
-    hex: "",
+    color: '#EDC2C4',
+    hex: '',
   },
   water: {
-    color: "#CBD5ED",
-    hex: "",
+    color: '#CBD5ED',
+    hex: '',
   },
   grass: {
-    color: "#C0D4C8",
-    hex: "",
+    color: '#C0D4C8',
+    hex: '',
   },
   electric: {
-    color: "#E2E2A0",
-    hex: "",
+    color: '#E2E2A0',
+    hex: '',
   },
   psychic: {
-    color: "#DDC0CF",
-    hex: "",
+    color: '#DDC0CF',
+    hex: '',
   },
   ice: {
-    color: "#C7D7DF",
-    hex: "",
+    color: '#C7D7DF',
+    hex: '',
   },
   dragon: {
-    color: "#CADCDF",
-    hex: "",
+    color: '#CADCDF',
+    hex: '',
   },
   dark: {
-    color: "#C6C5E3",
-    hex: "",
+    color: '#C6C5E3',
+    hex: '',
   },
   fairy: {
-    color: "#E4C0CF",
-    hex: "",
+    color: '#E4C0CF',
+    hex: '',
   },
   unknown: {
-    color: "#C0DFDD",
-    hex: "",
+    color: '#C0DFDD',
+    hex: '',
   },
   shadow: {
-    color: "#CACACA",
-    hex: "",
+    color: '#CACACA',
+    hex: '',
   },
 } as const;
 
@@ -110,14 +110,14 @@ export const getPokcolor = (type: string): string => {
   const pokemonType = type as PokemonTypeName;
   return POKEMON_TYPE[pokemonType]
     ? POKEMON_TYPE[pokemonType].color
-    : POKEMON_TYPE["unknown"].color;
+    : POKEMON_TYPE.unknown.color;
 };
 
 export const getBackground = (pokemonTypes: PokemonType[]): string => {
-  let color = "";
+  let color = '';
   if (pokemonTypes.length > 0) {
     const firstType = pokemonTypes[0];
-    if (!firstType) return "";
+    if (!firstType) return '';
 
     const {
       type: { name: pokemontype1 },
@@ -145,19 +145,19 @@ export const getPokemonDescription = (data: FlavorTextEntry[] = []): string => {
     const uniqueTextArray: string[] = [];
     return data.reduce((acc, next) => {
       if (
-        next.language.name === "en" &&
+        next.language.name === 'en' &&
         !uniqueTextArray.includes(next.flavor_text)
       ) {
         uniqueTextArray.push(next.flavor_text);
-        return acc + next.flavor_text.replace(/\n|\f/g, " ");
+        return acc + next.flavor_text.replace(/\n|\f/g, ' ');
       }
       return acc;
-    }, "");
+    }, '');
   }
-  return "";
+  return '';
 };
 
-export const getCamleCaseString = (str: string = ""): string => {
-  if (!str) return "";
+export const getCamleCaseString = (str: string = ''): string => {
+  if (!str) return '';
   return str.charAt(0).toUpperCase() + str.slice(1);
 };

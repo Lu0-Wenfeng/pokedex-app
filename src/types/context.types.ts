@@ -1,7 +1,7 @@
 // Context and state management type definitions
 
-import React from 'react';
-import { Pokemon, PokemonListItem } from './pokemon.types';
+import type React from 'react';
+import type { Pokemon, PokemonListItem } from './pokemon.types';
 
 // Pokemon application state interface
 export interface PokemonState {
@@ -33,7 +33,9 @@ export interface PokemonContextValue {
   state: PokemonState;
   dispatch: React.Dispatch<PokemonAction>;
   getPokemonData: (isReset?: boolean) => Promise<void>;
-  getPokemonDetailsListByUrl: (results: PokemonListItem[]) => Promise<Pokemon[]>;
+  getPokemonDetailsListByUrl: (
+    results: PokemonListItem[]
+  ) => Promise<Pokemon[]>;
   setAppLoading: (loading: boolean) => void;
 }
 
@@ -54,7 +56,10 @@ export interface PokemonProviderProps {
 }
 
 // Reducer function type
-export type PokemonReducer = (state: PokemonState, action: PokemonAction) => PokemonState;
+export type PokemonReducer = (
+  state: PokemonState,
+  action: PokemonAction
+) => PokemonState;
 
 // Action creators type definitions
 export interface PokemonActionCreators {
@@ -76,7 +81,9 @@ export interface UsePokemonContext {
   dispatch: React.Dispatch<PokemonAction>;
   actions: {
     getPokemonData: (isReset?: boolean) => Promise<void>;
-    getPokemonDetailsListByUrl: (results: PokemonListItem[]) => Promise<Pokemon[]>;
+    getPokemonDetailsListByUrl: (
+      results: PokemonListItem[]
+    ) => Promise<Pokemon[]>;
     setAppLoading: (loading: boolean) => void;
   };
 }
@@ -150,4 +157,6 @@ export interface AppState {
 // Context hook types
 export type UsePokemonState = () => PokemonState;
 export type UsePokemonDispatch = () => React.Dispatch<PokemonAction>;
-export type UsePokemonActions = () => PokemonContextValue['getPokemonData'] & PokemonContextValue['getPokemonDetailsListByUrl'] & PokemonContextValue['setAppLoading'];
+export type UsePokemonActions = () => PokemonContextValue['getPokemonData'] &
+  PokemonContextValue['getPokemonDetailsListByUrl'] &
+  PokemonContextValue['setAppLoading'];

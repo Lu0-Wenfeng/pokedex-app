@@ -1,26 +1,27 @@
-import { FilterProps } from "@app-types/component.types";
-import { GenderOption, TypeOption } from "@app-types/context.types";
-import { Pokemon, PokemonListItem } from "@app-types/pokemon.types";
-import { baseURL, SEARCH_SLICED } from "@constants/apiUrls";
-import { getCamleCaseString } from "@constants/pokemon.types";
-import PokemonContext from "@context/pokemonContext/pokmon.context";
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { Col, Row } from 'rsuite';
+import type { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, of } from 'rxjs';
+import type { FilterProps } from '@app-types/component.types';
+import type { GenderOption, TypeOption } from '@app-types/context.types';
+import type { Pokemon, PokemonListItem } from '@app-types/pokemon.types';
+import { baseURL, SEARCH_SLICED } from '@constants/apiUrls';
+import { getCamleCaseString } from '@constants/pokemon.types';
+import PokemonContext from '@context/pokemonContext/pokmon.context';
 import {
   getAllParallelCall,
   getPokemonGenders,
   getPokemonTypes,
   removeDuplicateBy,
-} from "@services/common.service";
-import React, { useContext, useEffect, useState } from "react";
-import { Col, Row } from "rsuite";
-import { debounceTime, distinctUntilChanged, map, Observable, of } from "rxjs";
-import "./filter.scss";
-import AppMultiSelectDropDown from "./multiSelectdropDown/multiSelectdropDown";
-import SearchFilter from "./search/search.filter";
+} from '@services/common.service';
+import './filter.scss';
+import AppMultiSelectDropDown from './multiSelectdropDown/multiSelectdropDown';
+import SearchFilter from './search/search.filter';
 
 const AppFilter: React.FC<FilterProps> = ({ isFilterEnable }) => {
   const context = useContext(PokemonContext);
   if (!context) {
-    throw new Error("AppFilter must be used within a PokemonProvider");
+    throw new Error('AppFilter must be used within a PokemonProvider');
   }
   const {
     state,
@@ -54,8 +55,15 @@ const AppFilter: React.FC<FilterProps> = ({ isFilterEnable }) => {
 
   const onCleanTypeHandler = (event?: any): void => {
     if (event) {
-      isFilterEnable(false);
+      isFilterEnable?.(false);
     }
+  };
+
+  const filterPokemonData = (data: Pokemon[]): void => {
+    dispatch({
+      type: 'ACTIONS.SET_FILTERED_POKEMON_LIST',
+      payload: data,
+    });
   };
 
   const onSearchChangeHandler = (
@@ -63,24 +71,25 @@ const AppFilter: React.FC<FilterProps> = ({ isFilterEnable }) => {
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
     event.preventDefault();
-    value = value.trim();
+    const trimmedValue = value.trim();
     setAppLoading(true);
 
-    if (value.length) {
-      isFilterEnable(true);
+    if (trimmedValue.length) {
+      isFilterEnable?.(true);
       data$ = of(allPokemonsList).pipe(
         debounceTime(4000),
         distinctUntilChanged(),
-        map((pokmons: PokemonListItem[]) => {
-          return pokmons.filter(
-            (item) => item.name.toLowerCase().indexOf(value.toLowerCase()) > -1
-          );
-        })
+        map((pokmons: PokemonListItem[]) =>
+          pokmons.filter(
+            item =>
+              item.name.toLowerCase().indexOf(trimmedValue.toLowerCase()) > -1
+          )
+        )
       );
     } else {
       filterPokemonData([]);
       getPokemonData(true);
-      isFilterEnable(false);
+      isFilterEnable?.(false);
     }
 
     const subscription = data$.subscribe((pokemanList: PokemonListItem[]) => {
@@ -103,12 +112,12 @@ const AppFilter: React.FC<FilterProps> = ({ isFilterEnable }) => {
   const onTypeChangeHandler = (value: string[], event: any): void => {
     event.preventDefault();
     if (value.length) {
-      isFilterEnable(true);
+      isFilterEnable?.(true);
       getAllParallelCall(value)
         .then((pokemonList: any[]) => {
-          let processedList = pokemonList.map((res) => res.pokemon);
-          processedList = processedList.flat().map((res) => res.pokemon);
-          processedList = removeDuplicateBy(processedList, "name");
+          let processedList = pokemonList.map(res => res.pokemon);
+          processedList = processedList.flat().map(res => res.pokemon);
+          processedList = removeDuplicateBy(processedList, 'name');
 
           if (processedList.length > SEARCH_SLICED) {
             processedList = processedList.slice(-SEARCH_SLICED);
@@ -119,29 +128,30 @@ const AppFilter: React.FC<FilterProps> = ({ isFilterEnable }) => {
           });
         })
         .catch((err: Error) => {
-          console.error("Error in type filter:", err);
+          // eslint-disable-next-line no-console
+          console.error('Error in type filter:', err);
         });
     } else {
       filterPokemonData([]);
       getPokemonData(true);
-      isFilterEnable(false);
+      isFilterEnable?.(false);
     }
   };
 
   const onGenderChangeHandler = (value: string[], event: any): void => {
     event.preventDefault();
     if (value.length) {
-      isFilterEnable(true);
+      isFilterEnable?.(true);
       getAllParallelCall(value)
         .then((pokemonList: any[]) => {
           let processedList = pokemonList
-            .map((res) => res.pokemon_species_details)
+            .map(res => res.pokemon_species_details)
             .flat();
           processedList = processedList.map(
-            (res) =>
-              baseURL +
-              "/pokemon" +
-              res.pokemon_species.url.split("pokemon-species")[1]
+            res =>
+              `${baseURL}/pokemon${
+                res.pokemon_species.url.split('pokemon-species')[1]
+              }`
           );
           processedList = Array.from(new Set(processedList));
 
@@ -152,90 +162,92 @@ const AppFilter: React.FC<FilterProps> = ({ isFilterEnable }) => {
             ];
           }
 
-          const urlList = processedList.map((res) => ({
+          const urlList = processedList.map(res => ({
             url: res,
-            name: res.split("/").filter(Boolean).pop() || "",
+            name: res.split('/').filter(Boolean).pop() ?? '',
           }));
           getPokemonDetailsListByUrl(urlList).then((res: Pokemon[]) => {
             filterPokemonData(res);
           });
         })
         .catch((err: Error) => {
-          console.error("Error in gender filter:", err);
+          // eslint-disable-next-line no-console
+          console.error('Error in gender filter:', err);
         });
     } else {
       filterPokemonData([]);
       getPokemonData(true);
-      isFilterEnable(false);
+      isFilterEnable?.(false);
     }
   };
 
-  const filterPokemonData = (data: Pokemon[]): void => {
-    dispatch({
-      type: "ACTIONS.SET_FILTERED_POKEMON_LIST",
-      payload: data,
-    });
-  };
+  const setPokemonTypes = useCallback(
+    (data: any[]): void => {
+      if (data.length) {
+        const formattedData: TypeOption[] = data.map(item => ({
+          label: getCamleCaseString(item.name),
+          value: item.url,
+        }));
+        dispatch({
+          type: 'ACTIONS.SET_POKEMON_TYPE',
+          payload: formattedData,
+        });
+      } else {
+        dispatch({
+          type: 'ACTIONS.SET_POKEMON_TYPE',
+          payload: [],
+        });
+      }
+    },
+    [dispatch]
+  );
 
-  const setPokemonTypes = (data: any[]): void => {
-    if (data.length) {
-      const formattedData: TypeOption[] = data.map((item) => ({
+  const setPokemonGendersList = useCallback(
+    (genderList: any[]): void => {
+      const formattedGenderList: GenderOption[] = genderList.map(item => ({
         label: getCamleCaseString(item.name),
         value: item.url,
       }));
-      dispatch({
-        type: "ACTIONS.SET_POKEMON_TYPE",
-        payload: formattedData,
-      });
-    } else {
-      dispatch({
-        type: "ACTIONS.SET_POKEMON_TYPE",
-        payload: [],
-      });
-    }
-  };
 
-  const setPokemonGendersList = (genderList: any[]): void => {
-    const formattedGenderList: GenderOption[] = genderList.map((item) => ({
-      label: getCamleCaseString(item.name),
-      value: item.url,
-    }));
+      if (formattedGenderList.length) {
+        dispatch({
+          type: 'ACTIONS.SET_POKEMON_GENDER_LIST',
+          payload: formattedGenderList,
+        });
+      } else {
+        dispatch({
+          type: 'ACTIONS.SET_POKEMON_GENDER_LIST',
+          payload: [],
+        });
+      }
+    },
+    [dispatch]
+  );
 
-    if (formattedGenderList.length) {
-      dispatch({
-        type: "ACTIONS.SET_POKEMON_GENDER_LIST",
-        payload: formattedGenderList,
-      });
-    } else {
-      dispatch({
-        type: "ACTIONS.SET_POKEMON_GENDER_LIST",
-        payload: [],
-      });
-    }
-  };
-
-  const getAllPokemonType = async (): Promise<void> => {
+  const getAllPokemonType = useCallback(async (): Promise<void> => {
     try {
       const res = await getPokemonTypes();
       setPokemonTypes(res.results);
     } catch (err) {
-      console.error("Error fetching Pokemon types:", err);
+      // eslint-disable-next-line no-console
+      console.error('Error fetching Pokemon types:', err);
     }
-  };
+  }, [setPokemonTypes]);
 
-  const getPokemonGendersList = async (): Promise<void> => {
+  const getPokemonGendersList = useCallback(async (): Promise<void> => {
     try {
       const res = await getPokemonGenders();
       setPokemonGendersList(res.results);
     } catch (err) {
-      console.error("Error fetching Pokemon genders:", err);
+      // eslint-disable-next-line no-console
+      console.error('Error fetching Pokemon genders:', err);
     }
-  };
+  }, [setPokemonGendersList]);
 
   useEffect(() => {
     getAllPokemonType();
     getPokemonGendersList();
-  }, []);
+  }, [getAllPokemonType, getPokemonGendersList]);
 
   return (
     <div className="filter-container">

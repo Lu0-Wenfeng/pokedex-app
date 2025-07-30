@@ -1,9 +1,10 @@
-import { EvolutionChainCardProps } from "@app-types/component.types";
-import rightArrowIcon from "@assets/icons/right-arrow.png";
-import PokemonCard from "@components/pokemonCard/pokemonCard";
-import "@styles/common.scss";
-import React from "react";
-import "./evolutionChainCard.scss";
+/* eslint-disable import/order, react/prop-types */
+import type { EvolutionChainCardProps } from '@app-types/component.types';
+import rightArrowIcon from '@assets/icons/right-arrow.png';
+import PokemonCard from '@components/pokemonCard/pokemonCard';
+import '@styles/common.scss';
+import React from 'react'; // eslint-disable-line import/order
+import './evolutionChainCard.scss';
 
 const EvolutionChainCard: React.FC<EvolutionChainCardProps> = ({ data }) => {
   // Placeholder array for evolution stages - in a real implementation,

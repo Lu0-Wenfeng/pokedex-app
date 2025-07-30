@@ -1,23 +1,21 @@
-import { ColorfulTagProps } from "@app-types/component.types";
-import { getPokcolor } from "@constants/pokemon.types";
-import React from "react";
-import "./colorfulTags.scss";
+import React from 'react';
+import type { ColorfulTagProps } from '@app-types/component.types';
+import { getPokcolor } from '@constants/pokemon.types';
+import './colorfulTags.scss';
 
-const ColorfulTag: React.FC<ColorfulTagProps> = ({ text, className, type }) => {
-  return (
-    <div>
-      <div className={className}>
-        <span
-          style={{
-            background: getPokcolor(type),
-          }}
-          className="colorful-tag"
-        >
-          {text}
-        </span>
-      </div>
+const ColorfulTag: React.FC<ColorfulTagProps> = ({ text, className, type }) => (
+  <div>
+    <div className={className}>
+      <span
+        style={{
+          background: getPokcolor(type),
+        }}
+        className="colorful-tag"
+      >
+        {text}
+      </span>
     </div>
-  );
-};
+  </div>
+);
 
 export default ColorfulTag;

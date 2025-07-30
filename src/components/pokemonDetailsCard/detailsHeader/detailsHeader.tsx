@@ -1,14 +1,15 @@
-import { DetailsHeaderProps } from "@app-types/component.types";
-import backIcon from "@assets/icons/back-icon.png";
-import closeIcon from "@assets/icons/close-icon.png";
-import rightIcon from "@assets/icons/right-icon.png";
-import PokemonCard from "@components/pokemonCard/pokemonCard";
-import { getPokemonDescription } from "@constants/pokemon.types";
-import AppTooltip from "@hooks/tooltip/tooltip";
-import { numberFormation } from "@services/common.service";
-import "@styles/common.scss";
-import React from "react";
-import "./detailsHeader.scss";
+/* eslint-disable import/order, react/prop-types */
+import type { DetailsHeaderProps } from '@app-types/component.types';
+import backIcon from '@assets/icons/back-icon.png';
+import closeIcon from '@assets/icons/close-icon.png';
+import rightIcon from '@assets/icons/right-icon.png';
+import PokemonCard from '@components/pokemonCard/pokemonCard';
+import { getPokemonDescription } from '@constants/pokemon.types';
+import AppTooltip from '@hooks/tooltip/tooltip';
+import { numberFormation } from '@services/common.service';
+import '@styles/common.scss';
+import React from 'react'; // eslint-disable-line import/order
+import './detailsHeader.scss';
 
 const DetailsHeader: React.FC<DetailsHeaderProps> = ({
   data,
@@ -18,11 +19,10 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
   forwardClick,
 }) => {
   const getPokemonDescriptions = (): string => {
-    if (speciesData && speciesData.flavor_text_entries) {
+    if (speciesData?.flavor_text_entries) {
       return getPokemonDescription(speciesData.flavor_text_entries);
-    } else {
-      return "";
     }
+    return '';
   };
 
   const handleKeyDown = (): void => {
@@ -44,11 +44,11 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
             <div>
               <h3 className="text-caps">{data.name}</h3>
             </div>
-            <div className="horizontal-line"></div>
+            <div className="horizontal-line" />
             <div>
               <h3>{numberFormation(data.id)}</h3>
             </div>
-            <div className="horizontal-line"></div>
+            <div className="horizontal-line" />
             <div>
               <div className="icon-wrap">
                 <img

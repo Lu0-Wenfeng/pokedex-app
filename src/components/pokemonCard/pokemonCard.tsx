@@ -1,18 +1,18 @@
-import { PokemonCardProps } from "@app-types/component.types";
-import { getBackground } from "@constants/pokemon.types";
-import { numberFormation } from "@services/common.service";
-import React from "react";
-import "./pokemonCard.scss";
+import React from 'react';
+import type { PokemonCardProps } from '@app-types/component.types';
+import { getBackground } from '@constants/pokemon.types';
+import { numberFormation } from '@services/common.service';
+import './pokemonCard.scss';
 
 const PokemonCard: React.FC<PokemonCardProps> = ({
   data,
   onClick,
-  className = "",
+  className = '',
 }) => {
   const imageUrl =
-    data.sprites.other.dream_world.front_default ||
-    data.sprites.front_default ||
-    "https://via.placeholder.com/150";
+    data.sprites.other.dream_world.front_default ??
+    data.sprites.front_default ??
+    'https://via.placeholder.com/150';
 
   return (
     <div

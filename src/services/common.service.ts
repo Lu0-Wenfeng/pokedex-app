@@ -1,14 +1,14 @@
 // Pokemon API service functions with TypeScript typing
 
-import {
+import type {
   GenderListResponse,
   Pokemon,
   PokemonListResponse,
   PokemonSpecies,
   PokemonTypeData,
   TypeListResponse,
-} from "@app-types/pokemon.types";
-import { LIMIT, baseURL } from "@constants/apiUrls";
+} from '@app-types/pokemon.types';
+import { LIMIT, baseURL } from '@constants/apiUrls';
 
 // API endpoint URLs
 export const initialURL: string = `${baseURL}/pokemon?limit=${LIMIT}`;
@@ -126,7 +126,8 @@ export const getAllParallelCall = async (apiUrls: string[]): Promise<any[]> => {
     );
     return results;
   } catch (error) {
-    console.error("Error in parallel API calls:", error);
+    // eslint-disable-next-line no-console
+    console.error('Error in parallel API calls:', error);
     throw error;
   }
 };
@@ -151,6 +152,7 @@ export const fetchWithErrorHandling = async <T>(url: string): Promise<T> => {
     const data = await response.json();
     return data as T;
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error(`Error fetching data from ${url}:`, error);
     throw error;
   }
@@ -162,11 +164,12 @@ export const getBatchPokemonData = async (
 ): Promise<Pokemon[]> => {
   try {
     const pokemonData = await Promise.all(
-      urls.map((url) => fetchWithErrorHandling<Pokemon>(url))
+      urls.map(url => fetchWithErrorHandling<Pokemon>(url))
     );
     return pokemonData;
   } catch (error) {
-    console.error("Error fetching batch Pokemon data:", error);
+    // eslint-disable-next-line no-console
+    console.error('Error fetching batch Pokemon data:', error);
     throw error;
   }
 };
@@ -182,7 +185,8 @@ export const searchPokemon = async (query: string): Promise<Pokemon | null> => {
 
     const pokemon = await fetchWithErrorHandling<Pokemon>(searchUrl);
     return pokemon;
-  } catch (error) {
+  } catch {
+    // eslint-disable-next-line no-console
     console.warn(`Pokemon not found for query: ${query}`);
     return null;
   }
@@ -194,42 +198,35 @@ export const getEvolutionChain = async (url: string): Promise<any> => {
     const evolutionData = await fetchWithErrorHandling<any>(url);
     return evolutionData;
   } catch (error) {
-    console.error("Error fetching evolution chain:", error);
+    // eslint-disable-next-line no-console
+    console.error('Error fetching evolution chain:', error);
     throw error;
   }
 };
 
 // Validate Pokemon ID
-export const isValidPokemonId = (id: number): boolean => {
-  return id > 0 && id <= 1010; // Current max Pokemon ID (as of 2024)
-};
+export const isValidPokemonId = (id: number): boolean => id > 0 && id <= 1010; // Current max Pokemon ID (as of 2024)
 
 // Format Pokemon weight (from hectograms to kg)
-export const formatWeight = (weight: number): string => {
-  return `${(weight / 10).toFixed(1)} kg`;
-};
+export const formatWeight = (weight: number): string =>
+  `${(weight / 10).toFixed(1)} kg`;
 
 // Format Pokemon height (from decimeters to meters)
-export const formatHeight = (height: number): string => {
-  return `${(height / 10).toFixed(1)} m`;
-};
+export const formatHeight = (height: number): string =>
+  `${(height / 10).toFixed(1)} m`;
 
 // Get Pokemon type effectiveness
-export const getTypeEffectiveness = (
-  _attackingType: string,
-  _defendingTypes: string[]
-): number => {
+export const getTypeEffectiveness = (): number =>
   // This would need a comprehensive type chart implementation
   // For now, returning 1 (normal effectiveness)
-  return 1;
-};
+  // TODO: Implement with attackingType: string, defendingTypes: string[]
+  1;
 
 // Cache management (simple in-memory cache)
 const pokemonCache = new Map<string, any>();
 
-export const getCachedData = <T>(key: string): T | null => {
-  return pokemonCache.get(key) || null;
-};
+export const getCachedData = <T>(key: string): T | null =>
+  pokemonCache.get(key) ?? null;
 
 export const setCachedData = <T>(key: string, data: T): void => {
   pokemonCache.set(key, data);
