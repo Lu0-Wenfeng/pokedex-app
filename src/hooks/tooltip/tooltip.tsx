@@ -1,6 +1,6 @@
+import { DefaultPopoverProps, TooltipProps } from "@app-types/component.types";
 import React, { forwardRef } from "react";
 import { Popover, Whisper } from "rsuite";
-import { DefaultPopoverProps, TooltipProps } from "../../types/component.types";
 
 // eslint-disable-next-line react/display-name
 const DefaultPopover = forwardRef<HTMLDivElement, DefaultPopoverProps>(

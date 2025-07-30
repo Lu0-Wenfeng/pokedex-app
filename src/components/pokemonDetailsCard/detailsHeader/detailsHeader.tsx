@@ -1,13 +1,13 @@
+import { DetailsHeaderProps } from "@app-types/component.types";
+import backIcon from "@assets/icons/back-icon.png";
+import closeIcon from "@assets/icons/close-icon.png";
+import rightIcon from "@assets/icons/right-icon.png";
+import PokemonCard from "@components/pokemonCard/pokemonCard";
+import { getPokemonDescription } from "@constants/pokemon.types";
+import AppTooltip from "@hooks/tooltip/tooltip";
+import { numberFormation } from "@services/common.service";
+import "@styles/common.scss";
 import React from "react";
-import backIcon from "../../../assets/icons/back-icon.png";
-import closeIcon from "../../../assets/icons/close-icon.png";
-import rightIcon from "../../../assets/icons/right-icon.png";
-import { getPokemonDescription } from "../../../constants/pokemon.types";
-import AppTooltip from "../../../hooks/tooltip/tooltip";
-import { numberFormation } from "../../../services/common.service";
-import "../../../styles/common.scss";
-import { DetailsHeaderProps } from "../../../types/component.types";
-import PokemonCard from "../../pokemonCard/pokemonCard";
 import "./detailsHeader.scss";
 
 const DetailsHeader: React.FC<DetailsHeaderProps> = ({

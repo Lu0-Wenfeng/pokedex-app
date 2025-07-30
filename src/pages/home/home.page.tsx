@@ -1,14 +1,14 @@
+import { HomePageProps } from "@app-types/component.types";
+import { Pokemon } from "@app-types/pokemon.types";
+import AppFilter from "@components/filter/filter";
+import Header from "@components/header/header";
+import Apploader from "@components/loader/loader";
+import PokemonCard from "@components/pokemonCard/pokemonCard";
+import PokemonContext from "@context/pokemonContext/pokmon.context";
+import DetailPage from "@pages/details/details.page";
+import "@styles/common.scss";
 import React, { useContext, useMemo, useState } from "react";
 import { Button, Col, Row } from "rsuite";
-import AppFilter from "../../components/filter/filter";
-import Header from "../../components/header/header";
-import Apploader from "../../components/loader/loader";
-import PokemonCard from "../../components/pokemonCard/pokemonCard";
-import PokemonContext from "../../context/pokemonContext/pokmon.context";
-import "../../styles/common.scss";
-import { HomePageProps } from "../../types/component.types";
-import { Pokemon } from "../../types/pokemon.types";
-import DetailPage from "../details/details.page";
 import "./home.scss";
 
 const HomePage: React.FC<HomePageProps> = () => {

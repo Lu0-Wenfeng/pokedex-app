@@ -1,15 +1,15 @@
-import React, { useCallback, useEffect, useReducer, useRef } from "react";
-import { allPokemonURL, initialURL } from "../../services/common.service";
-import { initialState, reducer } from "../../store/reducers/reducer";
 import {
   PokemonContextValue,
   PokemonProviderProps,
-} from "../../types/context.types";
+} from "@app-types/context.types";
 import {
   Pokemon,
   PokemonListItem,
   PokemonListResponse,
-} from "../../types/pokemon.types";
+} from "@app-types/pokemon.types";
+import { allPokemonURL, initialURL } from "@services/common.service";
+import { initialState, reducer } from "@store/reducers/reducer";
+import React, { useCallback, useEffect, useReducer, useRef } from "react";
 import PokemonContext from "./pokmon.context";
 
 export const PokemonProvider: React.FC<PokemonProviderProps> = ({

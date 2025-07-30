@@ -1,136 +1,133 @@
-import React from 'react';
-import { Grid, Row, Col } from 'rsuite';
-import { getCamleCaseString } from '../../../constants/pokemon.types';
-import ColorfulTag from '../colorfulTags/colorfulTag';
+import { PropertyCardProps } from "@app-types/component.types";
+import ColorfulTag from "@components/pokemonDetailsCard/colorfulTags/colorfulTag";
+import { getCamleCaseString } from "@constants/pokemon.types";
+import "@styles/common.scss";
+import React from "react";
+import { Col, Grid, Row } from "rsuite";
 import "./propertyCard.scss";
-import "../../../styles/common.scss";
-import { PropertyCardProps } from '../../../types/component.types';
 
-const PropertyCard: React.FC<PropertyCardProps> = ({ 
-    speciesData, 
-    data, 
-    pokemonTypeData 
+const PropertyCard: React.FC<PropertyCardProps> = ({
+  speciesData,
+  data,
+  pokemonTypeData,
 }) => {
-    const formatWeight = (weight: number): string => {
-        return `${(weight / 10).toFixed(1)} Kg`;
-    };
+  const formatWeight = (weight: number): string => {
+    return `${(weight / 10).toFixed(1)} Kg`;
+  };
 
-    const formatHeight = (height: number): string => {
-        return `${(height / 10).toFixed(1)} m`;
-    };
+  const formatHeight = (height: number): string => {
+    return `${(height / 10).toFixed(1)} m`;
+  };
 
-    return (
-        <div className="property-container">
-            <Grid fluid>
-                <Row className="show-grid">
-                    <Col xs={12} sm={12} lg={6} xl={6}>
-                        <div className='flex-col'>
-                            <div>
-                                <span className="prop-header">Height</span>
-                            </div>
-                            <div className='prop-header-data'>
-                                {formatHeight(data.height)}
-                            </div>
-                        </div>
-                    </Col>
-                    <Col xs={12} sm={12} lg={6} xl={6}>
-                        <div className='flex-col'>
-                            <div>
-                                <span className="prop-header">Weight</span>
-                            </div>
-                            <div className='prop-header-data'>
-                                {formatWeight(data.weight)}
-                            </div>
-                        </div>
-                    </Col>
-                    <Col xs={12} sm={12} lg={6} xl={6}>
-                        <div className='flex-col'>
-                            <div>
-                                <span className="prop-header">Gender(s)</span>
-                            </div>
-                            <div className='prop-header-data'>Male, Female</div>
-                        </div>
-                    </Col>
-                    <Col xs={12} sm={12} lg={6} xl={6}>
-                        <div className='flex-col'>
-                            <div>
-                                <span className="prop-header">Egg Groups</span>
-                            </div>
-                            {speciesData?.egg_groups?.length && (
-                                speciesData.egg_groups.map((item, index) => (
-                                    <span key={item.name} className='prop-header-data'>
-                                        {getCamleCaseString(item.name)}
-                                        {speciesData.egg_groups.length !== index + 1 && (
-                                            <span>,</span>
-                                        )}
-                                    </span>
-                                ))
-                            )}
-                        </div>
-                    </Col>
-                </Row>
-                <Row className="show-grid pt-3">
-                    <Col xs={12} sm={12} lg={6} xl={6}>
-                        <div className='flex-col'>
-                            <div>
-                                <span className="prop-header">Abilities</span>
-                            </div>
-                            {data.abilities.length && (
-                                data.abilities.map((item, index) => (
-                                    <span key={item.ability.name} className='prop-header-data'>
-                                        {getCamleCaseString(item.ability.name)}
-                                        {data.abilities.length !== index + 1 && (
-                                            <span>,</span>
-                                        )}
-                                    </span>
-                                ))
-                            )}
-                        </div>
-                    </Col>
-                    <Col xs={12} sm={12} lg={6} xl={6}>
-                        <div className='flex-col'>
-                            <div>
-                                <span className="prop-header">Types</span>
-                            </div>
-                            <div className='prop-header-data'>
-                                <div className='type-wrap'>
-                                    {data.types.length && (
-                                        data.types.map((item, index) => (
-                                            <ColorfulTag 
-                                                className="pr-1" 
-                                                key={`${item.type.name}-${index}`} 
-                                                type={item.type.name} 
-                                                text={getCamleCaseString(item.type.name)} 
-                                            />
-                                        ))
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    </Col>
-                    <Col xs={12} sm={12} lg={12} xl={12}>
-                        <div className='flex-col'>
-                            <div>
-                                <span className="prop-header">Weak Against</span>
-                            </div>
-                            <div className='prop-header-data type-wrap'>
-                                {pokemonTypeData?.damage_relations?.double_damage_from?.length && (
-                                    pokemonTypeData.damage_relations.double_damage_from.map((item, index) => (
-                                        <ColorfulTag 
-                                            key={`${item.name}-${index}`} 
-                                            className="pr-1" 
-                                            type={item.name} 
-                                            text={getCamleCaseString(item.name)} 
-                                        />
-                                    ))
-                                )}
-                            </div>
-                        </div>
-                    </Col>
-                </Row>
-            </Grid>
-        </div>
-    );
+  return (
+    <div className="property-container">
+      <Grid fluid>
+        <Row className="show-grid">
+          <Col xs={12} sm={12} lg={6} xl={6}>
+            <div className="flex-col">
+              <div>
+                <span className="prop-header">Height</span>
+              </div>
+              <div className="prop-header-data">
+                {formatHeight(data.height)}
+              </div>
+            </div>
+          </Col>
+          <Col xs={12} sm={12} lg={6} xl={6}>
+            <div className="flex-col">
+              <div>
+                <span className="prop-header">Weight</span>
+              </div>
+              <div className="prop-header-data">
+                {formatWeight(data.weight)}
+              </div>
+            </div>
+          </Col>
+          <Col xs={12} sm={12} lg={6} xl={6}>
+            <div className="flex-col">
+              <div>
+                <span className="prop-header">Gender(s)</span>
+              </div>
+              <div className="prop-header-data">Male, Female</div>
+            </div>
+          </Col>
+          <Col xs={12} sm={12} lg={6} xl={6}>
+            <div className="flex-col">
+              <div>
+                <span className="prop-header">Egg Groups</span>
+              </div>
+              {speciesData?.egg_groups?.length &&
+                speciesData.egg_groups.map((item, index) => (
+                  <span key={item.name} className="prop-header-data">
+                    {getCamleCaseString(item.name)}
+                    {speciesData.egg_groups.length !== index + 1 && (
+                      <span>,</span>
+                    )}
+                  </span>
+                ))}
+            </div>
+          </Col>
+        </Row>
+        <Row className="show-grid pt-3">
+          <Col xs={12} sm={12} lg={6} xl={6}>
+            <div className="flex-col">
+              <div>
+                <span className="prop-header">Abilities</span>
+              </div>
+              {data.abilities.length &&
+                data.abilities.map((item, index) => (
+                  <span key={item.ability.name} className="prop-header-data">
+                    {getCamleCaseString(item.ability.name)}
+                    {data.abilities.length !== index + 1 && <span>,</span>}
+                  </span>
+                ))}
+            </div>
+          </Col>
+          <Col xs={12} sm={12} lg={6} xl={6}>
+            <div className="flex-col">
+              <div>
+                <span className="prop-header">Types</span>
+              </div>
+              <div className="prop-header-data">
+                <div className="type-wrap">
+                  {data.types.length &&
+                    data.types.map((item, index) => (
+                      <ColorfulTag
+                        className="pr-1"
+                        key={`${item.type.name}-${index}`}
+                        type={item.type.name}
+                        text={getCamleCaseString(item.type.name)}
+                      />
+                    ))}
+                </div>
+              </div>
+            </div>
+          </Col>
+          <Col xs={12} sm={12} lg={12} xl={12}>
+            <div className="flex-col">
+              <div>
+                <span className="prop-header">Weak Against</span>
+              </div>
+              <div className="prop-header-data type-wrap">
+                {pokemonTypeData?.damage_relations?.double_damage_from
+                  ?.length &&
+                  pokemonTypeData.damage_relations.double_damage_from.map(
+                    (item, index) => (
+                      <ColorfulTag
+                        key={`${item.name}-${index}`}
+                        className="pr-1"
+                        type={item.name}
+                        text={getCamleCaseString(item.name)}
+                      />
+                    )
+                  )}
+              </div>
+            </div>
+          </Col>
+        </Row>
+      </Grid>
+    </div>
+  );
 };
 
 export default PropertyCard;

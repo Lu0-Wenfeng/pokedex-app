@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { Loader, Modal, Placeholder } from "rsuite";
-import DetailsHeader from "../../components/pokemonDetailsCard/detailsHeader/detailsHeader";
-import EvolutionChainCard from "../../components/pokemonDetailsCard/evolutionChainCard/evolutionChainCard";
-import PropertyCard from "../../components/pokemonDetailsCard/propertyCard/propertyCard";
-import StatCard from "../../components/pokemonDetailsCard/statCard/statCard";
-import {
-  getPokemonDataById,
-  getPokemonTypesById,
-  getSpeciesDataById,
-} from "../../services/common.service";
-import { DetailPageProps } from "../../types/component.types";
+import { DetailPageProps } from "@app-types/component.types";
 import {
   Pokemon,
   PokemonSpecies,
   PokemonTypeData,
-} from "../../types/pokemon.types";
+} from "@app-types/pokemon.types";
+import DetailsHeader from "@components/pokemonDetailsCard/detailsHeader/detailsHeader";
+import EvolutionChainCard from "@components/pokemonDetailsCard/evolutionChainCard/evolutionChainCard";
+import PropertyCard from "@components/pokemonDetailsCard/propertyCard/propertyCard";
+import StatCard from "@components/pokemonDetailsCard/statCard/statCard";
+import {
+  getPokemonDataById,
+  getPokemonTypesById,
+  getSpeciesDataById,
+} from "@services/common.service";
+import React, { useEffect, useState } from "react";
+import { Loader, Modal, Placeholder } from "rsuite";
 import "./details.page.scss";
 
 const DetailPage: React.FC<DetailPageProps> = ({

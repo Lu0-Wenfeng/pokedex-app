@@ -1,18 +1,18 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Col, Row } from "rsuite";
-import { debounceTime, distinctUntilChanged, map, Observable, of } from "rxjs";
-import { baseURL, SEARCH_SLICED } from "../../constants/apiUrls";
-import { getCamleCaseString } from "../../constants/pokemon.types";
-import PokemonContext from "../../context/pokemonContext/pokmon.context";
+import { FilterProps } from "@app-types/component.types";
+import { GenderOption, TypeOption } from "@app-types/context.types";
+import { Pokemon, PokemonListItem } from "@app-types/pokemon.types";
+import { baseURL, SEARCH_SLICED } from "@constants/apiUrls";
+import { getCamleCaseString } from "@constants/pokemon.types";
+import PokemonContext from "@context/pokemonContext/pokmon.context";
 import {
   getAllParallelCall,
   getPokemonGenders,
   getPokemonTypes,
   removeDuplicateBy,
-} from "../../services/common.service";
-import { FilterProps } from "../../types/component.types";
-import { GenderOption, TypeOption } from "../../types/context.types";
-import { Pokemon, PokemonListItem } from "../../types/pokemon.types";
+} from "@services/common.service";
+import React, { useContext, useEffect, useState } from "react";
+import { Col, Row } from "rsuite";
+import { debounceTime, distinctUntilChanged, map, Observable, of } from "rxjs";
 import "./filter.scss";
 import AppMultiSelectDropDown from "./multiSelectdropDown/multiSelectdropDown";
 import SearchFilter from "./search/search.filter";

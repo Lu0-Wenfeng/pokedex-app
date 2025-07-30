@@ -1,7 +1,7 @@
+import { SearchFilterProps } from "@app-types/component.types";
 import SearchIcon from "@rsuite/icons/Search";
 import React from "react";
 import { Input, InputGroup } from "rsuite";
-import { SearchFilterProps } from "../../../types/component.types";
 import "./search.filter.scss";
 
 const SearchFilter: React.FC<SearchFilterProps> = ({

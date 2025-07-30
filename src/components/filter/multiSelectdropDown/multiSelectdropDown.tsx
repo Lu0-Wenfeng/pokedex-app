@@ -1,6 +1,6 @@
+import { MultiSelectDropdownProps } from "@app-types/component.types";
 import React from "react";
 import { CheckPicker } from "rsuite";
-import { MultiSelectDropdownProps } from "../../../types/component.types";
 import "./multiSelectdropDown.scss";
 
 const AppMultiSelectDropDown: React.FC<MultiSelectDropdownProps> = ({
