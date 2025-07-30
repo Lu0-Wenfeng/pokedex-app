@@ -22,8 +22,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint src/**/*.js",
-    "lint-fix": "eslint src/**/*.js/ --fix"
+    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
+    "lint-fix": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --fix",
+    "type-check": "tsc --noEmit"
   },
   "eslintConfig": {
     "extends": [
@@ -54,6 +55,10 @@
     ]
   },
   "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.1.0",
+    "@types/react": "^19.1.9",
+    "@types/react-dom": "^19.1.7",
     "babel-plugin-named-exports-order": "0.0.2",
     "eslint": "^8.23.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",

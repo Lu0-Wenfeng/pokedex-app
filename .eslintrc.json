@@ -8,6 +8,7 @@
         "plugin:react/recommended",
         "plugin:jsx-a11y/recommended"
     ],
+    "parser": "@typescript-eslint/parser",
     "settings": {
         "react":{
             "version":"detect"
@@ -15,26 +16,36 @@
     },
     "overrides": [
         {
-            "files":["**/*.test.js","**/*.test.jsx"],
+            "files":["**/*.test.js","**/*.test.jsx","**/*.test.ts","**/*.test.tsx"],
             "env":{
                 "jest":true
+            }
+        },
+        {
+            "files": ["**/*.ts", "**/*.tsx"],
+
+            "rules": {
+                "@typescript-eslint/no-unused-vars": "off",
+                "@typescript-eslint/no-explicit-any": "off"
             }
         }
     ],
     "parserOptions": {
         "ecmaVersion": "latest",
-        "sourceType": "module"
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
     },
     "plugins": [
         "react",
         "jsx-a11y",
-        "testing-library"
+        "testing-library",
+        "@typescript-eslint"
     ],
     "rules": {
-        // "react/react-in-jsx-scope":"off",
-        // "react/prop-types":"off",
-        // "no-unused-vars":"off",
-        "no-console": 1
-        // "no-empty":"off"
+        "no-console": 1,
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/no-explicit-any": "off"
     }
 }
