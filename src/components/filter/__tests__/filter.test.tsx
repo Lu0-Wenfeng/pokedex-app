@@ -532,7 +532,12 @@ describe('Filter', () => {
       mockCommonService.getAllParallelCall.mockResolvedValue([
         {
           pokemon_species_details: [
-            { pokemon_species: { url: '/pokemon-species/1/' } },
+            {
+              pokemon_species: {
+                name: 'bulbasaur',
+                url: '/pokemon-species/1/',
+              },
+            },
           ],
         },
       ]);

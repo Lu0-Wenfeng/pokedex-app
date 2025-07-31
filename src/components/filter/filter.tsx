@@ -53,7 +53,7 @@ const AppFilter: React.FC<FilterProps> = ({ isFilterEnable }) => {
     setIsOpenGenderFilter(false);
   };
 
-  const onCleanTypeHandler = (event?: any): void => {
+  const onCleanTypeHandler = (event?: React.SyntheticEvent): void => {
     if (event) {
       isFilterEnable?.(false);
     }
@@ -109,14 +109,21 @@ const AppFilter: React.FC<FilterProps> = ({ isFilterEnable }) => {
     setAppLoading(false);
   };
 
-  const onTypeChangeHandler = (value: string[], event: any): void => {
-    event.preventDefault();
+  const onTypeChangeHandler = (
+    value: string[],
+    event?: React.SyntheticEvent
+  ): void => {
+    event?.preventDefault();
     if (value.length) {
       isFilterEnable?.(true);
       getAllParallelCall(value)
-        .then((pokemonList: any[]) => {
-          let processedList = pokemonList.map(res => res.pokemon);
-          processedList = processedList.flat().map(res => res.pokemon);
+        .then(pokemonList => {
+          let processedList = pokemonList
+            .map(res => res.pokemon)
+            .filter(Boolean)
+            .flat()
+            .filter((res): res is NonNullable<typeof res> => res != null)
+            .map(res => res.pokemon);
           processedList = removeDuplicateBy(processedList, 'name');
 
           if (processedList.length > SEARCH_SLICED) {
@@ -138,33 +145,46 @@ const AppFilter: React.FC<FilterProps> = ({ isFilterEnable }) => {
     }
   };
 
-  const onGenderChangeHandler = (value: string[], event: any): void => {
-    event.preventDefault();
+  const onGenderChangeHandler = (
+    value: string[],
+    event?: React.SyntheticEvent
+  ): void => {
+    event?.preventDefault();
     if (value.length) {
       isFilterEnable?.(true);
       getAllParallelCall(value)
-        .then((pokemonList: any[]) => {
-          let processedList = pokemonList
+        .then(pokemonList => {
+          const speciesDetails = pokemonList
             .map(res => res.pokemon_species_details)
-            .flat();
-          processedList = processedList.map(
-            res =>
-              `${baseURL}/pokemon${
-                res.pokemon_species.url.split('pokemon-species')[1]
-              }`
-          );
-          processedList = Array.from(new Set(processedList));
+            .filter(Boolean)
+            .flat()
+            .filter(Boolean);
 
-          if (processedList.length > SEARCH_SLICED) {
-            processedList = [
-              ...processedList.slice(0, SEARCH_SLICED),
-              ...processedList.slice(-SEARCH_SLICED),
+          const pokemonUrls = speciesDetails
+            .filter(
+              (res): res is NonNullable<typeof res> =>
+                res?.pokemon_species?.url != null
+            )
+            .map(
+              res =>
+                `${baseURL}/pokemon${
+                  res.pokemon_species.url.split('pokemon-species')[1]
+                }`
+            );
+
+          const uniqueUrls = Array.from(new Set(pokemonUrls));
+
+          let processedUrls = uniqueUrls;
+          if (processedUrls.length > SEARCH_SLICED) {
+            processedUrls = [
+              ...processedUrls.slice(0, SEARCH_SLICED),
+              ...processedUrls.slice(-SEARCH_SLICED),
             ];
           }
 
-          const urlList = processedList.map(res => ({
-            url: res,
-            name: res.split('/').filter(Boolean).pop() ?? '',
+          const urlList = processedUrls.map(url => ({
+            url,
+            name: url.split('/').filter(Boolean).pop() ?? '',
           }));
           getPokemonDetailsListByUrl(urlList).then((res: Pokemon[]) => {
             filterPokemonData(res);
@@ -182,7 +202,7 @@ const AppFilter: React.FC<FilterProps> = ({ isFilterEnable }) => {
   };
 
   const setPokemonTypes = useCallback(
-    (data: any[]): void => {
+    (data: Array<{ name: string; url: string }>): void => {
       if (data.length) {
         const formattedData: TypeOption[] = data.map(item => ({
           label: getCamleCaseString(item.name),
@@ -203,7 +223,7 @@ const AppFilter: React.FC<FilterProps> = ({ isFilterEnable }) => {
   );
 
   const setPokemonGendersList = useCallback(
-    (genderList: any[]): void => {
+    (genderList: Array<{ name: string; url: string }>): void => {
       const formattedGenderList: GenderOption[] = genderList.map(item => ({
         label: getCamleCaseString(item.name),
         value: item.url,

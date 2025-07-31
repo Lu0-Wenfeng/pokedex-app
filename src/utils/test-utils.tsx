@@ -3,8 +3,8 @@ import { render } from '@testing-library/react';
 import type { ReactElement } from 'react';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { PokemonProvider } from '@context/pokemonContext/pokemon.provider';
 import type { Pokemon, PokemonSpecies } from '@app-types/pokemon.types';
+import { PokemonProvider } from '@context/pokemonContext/pokemon.provider';
 
 // Mock data for testing
 export const mockPokemon: Pokemon = {

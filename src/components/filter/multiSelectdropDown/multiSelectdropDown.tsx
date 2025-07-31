@@ -19,19 +19,22 @@ const AppMultiSelectDropDown = ({
       <span>{label}</span>
     </div>
     <div className={`${isOpen ? 'is-dropdown-open' : ''} check-picker-wrap`}>
-      {React.createElement(CheckPicker as React.ComponentType<any>, {
-        block: true,
-        placeholder,
-        onChange: onChangeHandler,
-        size: 'lg',
-        onOpen: onOpenHandler,
-        onClose: onCloseHandler,
-        onClean: onCleanHandler,
-        data,
-        searchable: false,
-        style: { width: 224 },
-        ...props,
-      })}
+      {React.createElement(
+        CheckPicker as unknown as React.ComponentType<Record<string, unknown>>,
+        {
+          block: true,
+          placeholder,
+          onChange: onChangeHandler,
+          size: 'lg',
+          onOpen: onOpenHandler,
+          onClose: onCloseHandler,
+          onClean: onCleanHandler,
+          data,
+          searchable: false,
+          style: { width: 224 },
+          ...props,
+        }
+      )}
     </div>
   </div>
 );

@@ -60,7 +60,7 @@ export interface PokemonSprites {
       front_shiny: string | null;
     };
   };
-  versions?: any; // Complex nested structure, using any for now
+  versions?: PokemonSpriteVersions;
 }
 
 // Pokemon type information
@@ -375,6 +375,54 @@ export interface EvolutionDetail {
     url: string;
   } | null;
   turn_upside_down: boolean;
+}
+
+// Pokemon sprite versions structure
+export interface PokemonSpriteVersions {
+  'generation-i'?: {
+    'red-blue'?: PokemonSpriteSet;
+    yellow?: PokemonSpriteSet;
+  };
+  'generation-ii'?: {
+    crystal?: PokemonSpriteSet;
+    gold?: PokemonSpriteSet;
+    silver?: PokemonSpriteSet;
+  };
+  'generation-iii'?: {
+    emerald?: PokemonSpriteSet;
+    'firered-leafgreen'?: PokemonSpriteSet;
+    'ruby-sapphire'?: PokemonSpriteSet;
+  };
+  'generation-iv'?: {
+    'diamond-pearl'?: PokemonSpriteSet;
+    'heartgold-soulsilver'?: PokemonSpriteSet;
+    platinum?: PokemonSpriteSet;
+  };
+  'generation-v'?: {
+    'black-white'?: PokemonSpriteSet;
+  };
+  'generation-vi'?: {
+    'omegaruby-alphasapphire'?: PokemonSpriteSet;
+    'x-y'?: PokemonSpriteSet;
+  };
+  'generation-vii'?: {
+    icons?: PokemonSpriteSet;
+    'ultra-sun-ultra-moon'?: PokemonSpriteSet;
+  };
+  'generation-viii'?: {
+    icons?: PokemonSpriteSet;
+  };
+}
+
+export interface PokemonSpriteSet {
+  back_default?: string | null;
+  back_female?: string | null;
+  back_shiny?: string | null;
+  back_shiny_female?: string | null;
+  front_default?: string | null;
+  front_female?: string | null;
+  front_shiny?: string | null;
+  front_shiny_female?: string | null;
 }
 
 // Utility types for component props

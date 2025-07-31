@@ -79,14 +79,14 @@ export interface TooltipProps {
     | 'leftEnd'
     | 'rightStart'
     | 'rightEnd';
-  data: any;
+  data: React.ReactNode;
   className?: string;
   name?: string;
   tooltipClass?: string;
 }
 
 export interface DefaultPopoverProps {
-  content: any;
+  content: React.ReactNode;
   className?: string;
 }
 
@@ -109,13 +109,13 @@ export interface SearchFilterProps {
 // Multi Select Dropdown component props
 export interface MultiSelectDropdownProps {
   label?: string;
-  onChangeHandler: (value: any, event?: any) => void;
+  onChangeHandler: (value: string[], event?: React.SyntheticEvent) => void;
   data: DropdownOption[];
   placeholder?: string;
   isOpen?: boolean;
   onOpenHandler?: () => void;
   onCloseHandler?: () => void;
-  onCleanHandler?: (event?: any) => void;
+  onCleanHandler?: (event?: React.SyntheticEvent) => void;
   className?: string;
 }
 

@@ -119,7 +119,7 @@ export interface FilterOption<T = string> {
   disabled?: boolean;
 }
 
-export interface FilterState<T = any> {
+export interface FilterState<T = Record<string, unknown>> {
   filters: T;
   isActive: boolean;
 }
@@ -133,7 +133,7 @@ export interface SortConfig<T = string> {
 }
 
 // Search utility types
-export interface SearchState<T = any> {
+export interface SearchState<T = unknown> {
   query: string;
   results: T[];
   isSearching: boolean;
@@ -144,7 +144,7 @@ export interface SearchState<T = any> {
 export interface ModalState {
   isOpen: boolean;
   type?: string;
-  data?: any;
+  data?: unknown;
 }
 
 // Theme utility types
@@ -180,12 +180,12 @@ export type AnimationDuration = 'fast' | 'normal' | 'slow';
 export type AnimationType = 'fade' | 'slide' | 'scale' | 'bounce';
 
 // Data transformation utility types
-export type KeyValuePair<K = string, V = any> = {
+export type KeyValuePair<K = string, V = unknown> = {
   key: K;
   value: V;
 };
 
-export type Dictionary<T = any> = Record<string, T>;
+export type Dictionary<T = unknown> = Record<string, T>;
 export type StringDictionary = Dictionary<string>;
 export type NumberDictionary = Dictionary<number>;
 
@@ -197,9 +197,8 @@ export type Comparator<T> = (a: T, b: T) => number;
 
 // Promise utility types
 export type PromiseValue<T> = T extends Promise<infer U> ? U : T;
-export type PromiseReturnType<T extends (...args: any[]) => any> = PromiseValue<
-  ReturnType<T>
->;
+export type PromiseReturnType<T extends (...args: never[]) => unknown> =
+  PromiseValue<ReturnType<T>>;
 
 // Array utility types
 export type ArrayElement<T> = T extends (infer U)[] ? U : never;
@@ -234,7 +233,7 @@ export type Status = 'idle' | 'loading' | 'success' | 'error';
 export type RequestStatus = 'pending' | 'fulfilled' | 'rejected';
 
 // Component state utility types
-export interface ComponentState<T = any> {
+export interface ComponentState<T = unknown> {
   data: T | null;
   loading: boolean;
   error: string | null;
@@ -256,7 +255,7 @@ export interface RouteState {
   pathname: string;
   search: string;
   hash: string;
-  state?: any;
+  state?: unknown;
 }
 
 // Environment utility types

@@ -1,6 +1,7 @@
 // Pokemon API service functions with TypeScript typing
 
 import type {
+  EvolutionChain,
   GenderListResponse,
   Pokemon,
   PokemonListResponse,
@@ -110,8 +111,19 @@ export const numberFormation = (number: number | string): string => {
   return numStr;
 };
 
+// Types for parallel API call responses
+export interface ParallelApiResponse {
+  pokemon?: Array<{ pokemon: { name: string; url: string } }>;
+  pokemon_species_details?: Array<{
+    pokemon_species: { name: string; url: string };
+  }>;
+  [key: string]: unknown;
+}
+
 // Parallel API calls utility
-export const getAllParallelCall = async (apiUrls: string[]): Promise<any[]> => {
+export const getAllParallelCall = async (
+  apiUrls: string[]
+): Promise<ParallelApiResponse[]> => {
   try {
     const results = await Promise.all(
       apiUrls.map(async (url: string) => {
@@ -193,9 +205,11 @@ export const searchPokemon = async (query: string): Promise<Pokemon | null> => {
 };
 
 // Get Pokemon evolution chain
-export const getEvolutionChain = async (url: string): Promise<any> => {
+export const getEvolutionChain = async (
+  url: string
+): Promise<EvolutionChain | null> => {
   try {
-    const evolutionData = await fetchWithErrorHandling<any>(url);
+    const evolutionData = await fetchWithErrorHandling<EvolutionChain>(url);
     return evolutionData;
   } catch (error) {
     // eslint-disable-next-line no-console
@@ -223,10 +237,12 @@ export const getTypeEffectiveness = (): number =>
   1;
 
 // Cache management (simple in-memory cache)
-const pokemonCache = new Map<string, any>();
+const pokemonCache = new Map<string, unknown>();
 
-export const getCachedData = <T>(key: string): T | null =>
-  pokemonCache.get(key) ?? null;
+export const getCachedData = <T>(key: string): T | null => {
+  const cached = pokemonCache.get(key);
+  return cached ? (cached as T) : null;
+};
 
 export const setCachedData = <T>(key: string, data: T): void => {
   pokemonCache.set(key, data);
