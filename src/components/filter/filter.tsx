@@ -1,7 +1,3 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { Col, Row } from 'rsuite';
-import type { Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, of } from 'rxjs';
 import type { FilterProps } from '@app-types/component.types';
 import type { GenderOption, TypeOption } from '@app-types/context.types';
 import type { Pokemon, PokemonListItem } from '@app-types/pokemon.types';
@@ -14,6 +10,10 @@ import {
   getPokemonTypes,
   removeDuplicateBy,
 } from '@services/common.service';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { Col, Row } from 'rsuite';
+import type { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, of } from 'rxjs';
 import './filter.scss';
 import AppMultiSelectDropDown from './multiSelectdropDown/multiSelectdropDown';
 import SearchFilter from './search/search.filter';
@@ -80,9 +80,8 @@ const AppFilter: React.FC<FilterProps> = ({ isFilterEnable }) => {
         debounceTime(4000),
         distinctUntilChanged(),
         map((pokmons: PokemonListItem[]) =>
-          pokmons.filter(
-            item =>
-              item.name.toLowerCase().indexOf(trimmedValue.toLowerCase()) > -1
+          pokmons.filter(item =>
+            item.name.toLowerCase().includes(trimmedValue.toLowerCase())
           )
         )
       );

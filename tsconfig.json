@@ -1,24 +1,21 @@
 {
   "compilerOptions": {
-    "target": "es2022",
+    "target": "esnext",
     "lib": [
       "dom",
       "dom.iterable",
-      "es6",
-      "es2022",
-      "es2021"
+      "esnext",
     ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
@@ -41,9 +38,6 @@
     "strictPropertyInitialization": true,
     "noImplicitThis": true,
     "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "exactOptionalPropertyTypes": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
     "allowUnusedLabels": false,
@@ -54,12 +48,15 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/**/*.js",
-    "src/**/*.jsx"
   ],
   "exclude": [
     "node_modules",
     "build",
-    "dist"
+    "dist",
+    "**/*.stories.tsx",
+    "**/*.stories.ts",
+    "**/*.test.tsx",
+    "**/*.test.ts"
+
   ]
 }

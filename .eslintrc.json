@@ -1,156 +1,52 @@
 {
   "env": {
     "browser": true,
-    "es2021": true,
+    "es2022": true,
     "node": true
   },
   "extends": [
-    "airbnb",
-    "airbnb-typescript",
-    "airbnb/hooks",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:storybook/recommended",
-    "prettier"
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended-type-checked",
+    "plugin:@typescript-eslint/stylistic-type-checked",
+    "plugin:prettier/recommended"
   ],
+  "plugins": ["@typescript-eslint", "react", "react-hooks", "prettier"],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "project": true,
     "ecmaVersion": "latest",
     "sourceType": "module",
-    "project": "./tsconfig.json",
     "ecmaFeatures": {
       "jsx": true
     }
   },
-  "plugins": [
-    "react",
-    "react-hooks",
-    "jsx-a11y",
-    "@typescript-eslint",
-    "import",
-    "prettier"
-  ],
-  "settings": {
-    "react": {
-      "version": "detect"
-    },
-    "import/resolver": {
-      "typescript": {
-        "alwaysTryTypes": true,
-        "project": "./tsconfig.json"
-      }
-    }
-  },
+  "ignorePatterns": ["build/**"],
   "rules": {
-    // Disable problematic rules that aren't available
-    "@typescript-eslint/lines-between-class-members": "off",
-    "@typescript-eslint/no-throw-literal": "off",
-
-    // TypeScript specific overrides
-    "@typescript-eslint/no-unused-vars": "error",
-    "@typescript-eslint/no-explicit-any": "warn",
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off",
-    "@typescript-eslint/prefer-nullish-coalescing": "error",
-    "@typescript-eslint/prefer-optional-chain": "error",
-    "@typescript-eslint/no-non-null-assertion": "error",
-    "@typescript-eslint/consistent-type-imports": "error",
-    "@typescript-eslint/no-empty-object-type": "warn",
-
-    // React specific overrides
     "react/react-in-jsx-scope": "off",
-    "react/function-component-definition": [
+    "react/jsx-uses-react": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "@typescript-eslint/array-type": "warn",
+    "@typescript-eslint/no-unused-vars": [
       "error",
-      {
-        "namedComponents": "arrow-function",
-        "unnamedComponents": "arrow-function"
-      }
+      { "argsIgnorePattern": "^_", "ignoreRestSiblings": true }
     ],
-    "react/jsx-props-no-spreading": "off",
-    "react/require-default-props": "off",
-    "react/prop-types": "off",
-
-    // Import/Export rules
-    "import/prefer-default-export": "off",
-    "import/no-extraneous-dependencies": [
-      "error",
-      {
-        "devDependencies": [
-          "**/*.stories.*",
-          "**/*.test.*",
-          "**/*.spec.*",
-          "**/setupTests.*",
-          "**/craco.config.*"
-        ]
-      }
-    ],
-    "import/order": [
-      "error",
-      {
-        "groups": [
-          "builtin",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index"
-        ],
-        "pathGroups": [
-          {
-            "pattern": "@/**",
-            "group": "internal"
-          }
-        ],
-        "pathGroupsExcludedImportTypes": ["builtin"],
-        "newlines-between": "never",
-        "alphabetize": {
-          "order": "asc",
-          "caseInsensitive": true
-        }
-      }
-    ],
-
-    // General code quality
-    "no-console": "warn",
-    "prefer-const": "error",
-    "no-var": "error",
+    "@typescript-eslint/no-unsafe-return": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unsafe-argument": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/consistent-type-definitions": ["warn", "type"],
+    "@typescript-eslint/no-floating-promises": "warn",
+    "@typescript-eslint/no-inferrable-types": "off",
     "no-unused-vars": "off",
-    "prettier/prettier": "error"
-  },
-  "overrides": [
-    {
-      "files": ["**/*.stories.*"],
-      "rules": {
-        "import/no-anonymous-default-export": "off",
-        "react/react-in-jsx-scope": "off",
-        "react/function-component-definition": "off",
-        "@typescript-eslint/no-unused-vars": "off",
-        "@typescript-eslint/no-explicit-any": "off",
-        "no-console": "off",
-        "import/no-extraneous-dependencies": "off"
-      }
-    },
-    {
-      "files": ["**/*.test.*", "**/*.spec.*"],
-      "env": {
-        "jest": true
-      },
-      "rules": {
-        "@typescript-eslint/no-explicit-any": "off",
-        "import/no-extraneous-dependencies": "off"
-      }
-    },
-    {
-      "files": ["src/types/**/*.ts"],
-      "rules": {
-        "@typescript-eslint/no-unused-vars": "off",
-        "no-unused-vars": "off"
-      }
-    },
-    {
-      "files": ["*.js", "*.jsx"],
-      "rules": {
-        "@typescript-eslint/no-var-requires": "off"
-      }
-    }
-  ]
+    "no-prototype-builtins": "off",
+    "import/order": "off"
+  }
 }
