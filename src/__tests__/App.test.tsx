@@ -1,5 +1,5 @@
-import { mockApiResponses, mockPokemon } from '@/utils/test-utils';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { mockApiResponses, mockPokemon } from '@/utils/test-utils';
 import App from '../App';
 
 // Mock IntersectionObserver

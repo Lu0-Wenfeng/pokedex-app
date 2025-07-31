@@ -1,5 +1,5 @@
-import { mockApiResponses, mockPokemon, render } from '@/utils/test-utils';
 import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { mockApiResponses, mockPokemon, render } from '@/utils/test-utils';
 import HomePage from '../home.page';
 
 // Mock fetch globally

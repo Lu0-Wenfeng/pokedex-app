@@ -1,13 +1,13 @@
-import { mockApiResponses, render } from '@/utils/test-utils';
 import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { mockApiResponses, render } from '@/utils/test-utils';
+import * as commonService from '@services/common.service';
 import Filter from '../filter';
+
+// Import and mock common service functions
 
 // Mock fetch globally
 const mockFetch = jest.fn();
 global.fetch = mockFetch;
-
-// Import and mock common service functions
-import * as commonService from '@services/common.service';
 
 jest.mock('@services/common.service', () => ({
   ...jest.requireActual('@services/common.service'),

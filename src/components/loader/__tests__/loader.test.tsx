@@ -7,7 +7,10 @@ describe('Loader', () => {
     it('should render loader component', () => {
       render(<Loader />);
 
-      const loader = screen.getByTestId('loader') || screen.getByRole('status') || document.querySelector('.loader');
+      const loader =
+        screen.getByTestId('loader') ||
+        screen.getByRole('status') ||
+        document.querySelector('.loader');
       expect(loader || document.body.firstChild).toBeInTheDocument();
     });
 
@@ -24,19 +27,20 @@ describe('Loader', () => {
   describe('Accessibility', () => {
     it('should be accessible to screen readers', () => {
       render(<Loader />);
-      
+
       // Check for common accessibility patterns
-      const statusElement = screen.queryByRole('status') || 
-                           screen.queryByLabelText(/loading/i) ||
-                           screen.queryByText(/loading/i);
-      
+      const statusElement =
+        screen.queryByRole('status') ||
+        screen.queryByLabelText(/loading/i) ||
+        screen.queryByText(/loading/i);
+
       // At minimum, the component should render something
       expect(document.body).toContainHTML('<div');
     });
 
     it('should have appropriate ARIA attributes if implemented', () => {
       const { container } = render(<Loader />);
-      
+
       // Check if the loader has any ARIA attributes
       const loaderElement = container.firstChild as HTMLElement;
       if (loaderElement) {
@@ -44,12 +48,13 @@ describe('Loader', () => {
         const ariaLabel = loaderElement.getAttribute('aria-label');
         const ariaLive = loaderElement.getAttribute('aria-live');
         const role = loaderElement.getAttribute('role');
-        
+
         if (ariaLabel) expect(ariaLabel).toBeTruthy();
-        if (ariaLive) expect(['polite', 'assertive', 'off']).toContain(ariaLive);
+        if (ariaLive)
+          expect(['polite', 'assertive', 'off']).toContain(ariaLive);
         if (role) expect(role).toBeTruthy();
       }
-      
+
       expect(loaderElement).toBeInTheDocument();
     });
   });
@@ -58,7 +63,7 @@ describe('Loader', () => {
     it('should render consistently', () => {
       const { container: container1 } = render(<Loader />);
       const { container: container2 } = render(<Loader />);
-      
+
       // Both renders should produce similar structure
       expect(container1.innerHTML).toBe(container2.innerHTML);
     });
@@ -82,14 +87,14 @@ describe('Loader', () => {
       const startTime = performance.now();
       render(<Loader />);
       const endTime = performance.now();
-      
+
       // Should render in less than 100ms
       expect(endTime - startTime).toBeLessThan(100);
     });
 
     it('should not cause memory leaks when unmounted', () => {
       const { unmount } = render(<Loader />);
-      
+
       expect(() => unmount()).not.toThrow();
     });
 
@@ -117,7 +122,8 @@ describe('Loader', () => {
         </div>
       );
 
-      const section = screen.getByRole('region') || document.querySelector('section');
+      const section =
+        screen.getByRole('region') || document.querySelector('section');
       expect(section).toBeInTheDocument();
     });
 
@@ -151,12 +157,12 @@ describe('Loader', () => {
   describe('Edge Cases', () => {
     it('should handle rapid mount/unmount cycles', () => {
       const { unmount, rerender } = render(<Loader />);
-      
+
       for (let i = 0; i < 10; i++) {
         unmount();
         rerender(<Loader />);
       }
-      
+
       expect(document.body).toBeInTheDocument();
     });
 
@@ -167,17 +173,17 @@ describe('Loader', () => {
         configurable: true,
         value: 375,
       });
-      
+
       render(<Loader />);
       expect(document.body).toBeInTheDocument();
-      
+
       // Simulate desktop viewport
       Object.defineProperty(window, 'innerWidth', {
         writable: true,
         configurable: true,
         value: 1920,
       });
-      
+
       render(<Loader />);
       expect(document.body).toBeInTheDocument();
     });
@@ -199,10 +205,10 @@ describe('Loader', () => {
       // Mock older browser environment
       const originalSupports = CSS.supports;
       CSS.supports = jest.fn().mockReturnValue(false);
-      
+
       render(<Loader />);
       expect(document.body).toBeInTheDocument();
-      
+
       CSS.supports = originalSupports;
     });
 
@@ -219,10 +225,10 @@ describe('Loader', () => {
         removeEventListener: jest.fn(),
         dispatchEvent: jest.fn(),
       }));
-      
+
       render(<Loader />);
       expect(document.body).toBeInTheDocument();
-      
+
       window.matchMedia = originalMatchMedia;
     });
   });
@@ -230,7 +236,7 @@ describe('Loader', () => {
   describe('Stress Testing', () => {
     it('should handle being rendered many times', () => {
       const loaders = Array.from({ length: 100 }, (_, i) => <Loader key={i} />);
-      
+
       expect(() => render(<div>{loaders}</div>)).not.toThrow();
     });
 

@@ -1,5 +1,5 @@
-import { mockPokemon, render } from '@/utils/test-utils';
 import { fireEvent, screen } from '@testing-library/react';
+import { mockPokemon, render } from '@/utils/test-utils';
 import PokemonCard from '../pokemonCard';
 
 describe('PokemonCard', () => {

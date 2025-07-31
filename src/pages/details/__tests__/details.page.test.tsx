@@ -1,6 +1,6 @@
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { render } from '@/utils/test-utils';
 import * as commonService from '@services/common.service';
-import { fireEvent, screen, waitFor } from '@testing-library/react';
 import DetailPage from '../details.page';
 
 // Mock fetch globally
@@ -17,47 +17,48 @@ jest.mock('@services/common.service', () => ({
 }));
 
 // Mock the child components
-jest.mock('@components/pokemonDetailsCard/detailsHeader/detailsHeader', () => {
-  return function MockDetailsHeader({
-    forwardClick,
-    backClick,
-    closeClick,
-  }: any) {
-    return (
-      <div data-testid="details-header">
-        <button onClick={forwardClick} data-testid="forward-btn">
-          Forward
-        </button>
-        <button onClick={backClick} data-testid="back-btn">
-          Back
-        </button>
-        <button onClick={closeClick} data-testid="close-btn">
-          Close
-        </button>
-      </div>
-    );
-  };
-});
+jest.mock(
+  '@components/pokemonDetailsCard/detailsHeader/detailsHeader',
+  () =>
+    function MockDetailsHeader({ forwardClick, backClick, closeClick }: any) {
+      return (
+        <div data-testid="details-header">
+          <button onClick={forwardClick} data-testid="forward-btn">
+            Forward
+          </button>
+          <button onClick={backClick} data-testid="back-btn">
+            Back
+          </button>
+          <button onClick={closeClick} data-testid="close-btn">
+            Close
+          </button>
+        </div>
+      );
+    }
+);
 
-jest.mock('@components/pokemonDetailsCard/propertyCard/propertyCard', () => {
-  return function MockPropertyCard() {
-    return <div data-testid="property-card">Property Card</div>;
-  };
-});
+jest.mock(
+  '@components/pokemonDetailsCard/propertyCard/propertyCard',
+  () =>
+    function MockPropertyCard() {
+      return <div data-testid="property-card">Property Card</div>;
+    }
+);
 
-jest.mock('@components/pokemonDetailsCard/statCard/statCard', () => {
-  return function MockStatCard() {
-    return <div data-testid="stat-card">Stat Card</div>;
-  };
-});
+jest.mock(
+  '@components/pokemonDetailsCard/statCard/statCard',
+  () =>
+    function MockStatCard() {
+      return <div data-testid="stat-card">Stat Card</div>;
+    }
+);
 
 jest.mock(
   '@components/pokemonDetailsCard/evolutionChainCard/evolutionChainCard',
-  () => {
-    return function MockEvolutionChainCard() {
+  () =>
+    function MockEvolutionChainCard() {
       return <div data-testid="evolution-chain-card">Evolution Chain Card</div>;
-    };
-  }
+    }
 );
 
 const mockPokemonData = {

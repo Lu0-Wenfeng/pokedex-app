@@ -1,6 +1,6 @@
-import { reducer, initialState } from '../reducer';
 import type { PokemonAction, PokemonState } from '@app-types/context.types';
 import { mockPokemon } from '@/utils/test-utils';
+import { reducer, initialState } from '../reducer';
 
 describe('Pokemon Reducer', () => {
   describe('Initial State', () => {

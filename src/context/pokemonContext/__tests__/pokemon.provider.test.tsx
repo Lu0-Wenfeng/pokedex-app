@@ -1,11 +1,11 @@
+import { act, waitFor } from '@testing-library/react';
+import { useContext } from 'react';
 import {
   mockApiResponses,
   mockPokemon,
   render,
   screen,
 } from '@/utils/test-utils';
-import { act, waitFor } from '@testing-library/react';
-import { useContext } from 'react';
 import { PokemonProvider } from '../pokemon.provider';
 import PokemonContext from '../pokmon.context';
 
