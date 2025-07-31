@@ -92,12 +92,75 @@ export const Default: Story = {
 
 ## 🎯 Current Stories
 
-### PokemonCard (Simple)
-- **Location**: `src/components/pokemonCard/PokemonCard.simple.stories.tsx`
-- **Stories**:
-  - `Default` - Interactive card with click handler
-  - `WithoutClick` - Static display card
-  - `WithCustomClass` - Card with custom styling
+All atomic components now have comprehensive Storybook stories! Here's the complete coverage:
+
+### Core Components
+- **Header** - `src/components/header/Header.stories.tsx`
+- **Loader** - `src/components/loader/Loader.stories.tsx`
+- **PokemonCard** - `src/components/pokemonCard/PokemonCard.stories.tsx` & `PokemonCard.simple.stories.tsx`
+
+### Filter Components
+- **AppFilter** - `src/components/filter/AppFilter.stories.tsx`
+- **SearchFilter** - `src/components/filter/search/SearchFilter.stories.tsx`
+- **MultiSelectDropDown** - `src/components/filter/multiSelectdropDown/MultiSelectDropDown.stories.tsx`
+
+### Pokemon Details Components
+- **ColorfulTag** - `src/components/pokemonDetailsCard/colorfulTags/ColorfulTag.stories.tsx`
+- **DetailsHeader** - `src/components/pokemonDetailsCard/detailsHeader/DetailsHeader.stories.tsx`
+- **EvolutionChainCard** - `src/components/pokemonDetailsCard/evolutionChainCard/EvolutionChainCard.stories.tsx`
+- **PropertyCard** - `src/components/pokemonDetailsCard/propertyCard/PropertyCard.stories.tsx`
+- **StatCard** - `src/components/pokemonDetailsCard/statCard/StatCard.stories.tsx`
+
+### Utility Components
+- **AppTooltip** - `src/hooks/tooltip/AppTooltip.stories.tsx`
+  - `Default` - Basic tooltip with bottom placement
+  - `AllPlacements` - Demonstrates all 12 placement options
+  - `LongContent` - Shows text wrapping behavior
+  - `WithCustomStyling` - Custom CSS styling example
+  - `PokemonExample` - Real-world usage in Pokemon descriptions
+  - `InteractiveDemo` - Multiple tooltips with different content types
+
+## ✅ Story Coverage Status
+
+**100% Coverage Achieved!** All atomic components now have Storybook stories.
+
+## 📋 Maintaining Story Coverage
+
+### Adding New Components
+
+When creating new atomic components, **always** create a corresponding Storybook story:
+
+1. **Create the story file** alongside your component
+2. **Include multiple variants** to showcase different states and props
+3. **Add comprehensive documentation** using the `docs` parameter
+4. **Test edge cases** like loading, error, and empty states
+5. **Update this documentation** to reflect the new story
+
+### Story Checklist for New Components
+
+- [ ] Story file created with `.stories.tsx` extension
+- [ ] Default story with basic props
+- [ ] Variant stories for different states/props
+- [ ] Documentation with component description
+- [ ] ArgTypes defined for interactive controls
+- [ ] Edge cases covered (loading, error, empty)
+- [ ] Accessibility considerations included
+
+### Automated Coverage Verification
+
+To ensure all components have stories, you can run:
+
+```bash
+# Check for components without stories
+find src/components -name "*.tsx" -not -name "*.stories.tsx" -not -name "*.test.tsx" | \
+  while read file; do
+    dir=$(dirname "$file")
+    base=$(basename "$file" .tsx)
+    if [ ! -f "$dir/$base.stories.tsx" ] && [ ! -f "$dir/${base^}.stories.tsx" ]; then
+      echo "Missing story: $file"
+    fi
+  done
+```
 
 ## 🛠️ Development Guidelines
 
