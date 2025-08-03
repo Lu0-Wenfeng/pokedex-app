@@ -15,7 +15,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "prebuild": "rimraf build && npm run quality",
+    "prebuild": "rimraf build && pnpm run quality",
     "start": "rsbuild dev",
     "build": "rsbuild build",
     "preview": "rsbuild preview",
@@ -24,8 +24,8 @@
     "type-check": "tsc --noEmit",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "format-check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
-    "quality": "npm run type-check && npm run lint && npm run format-check",
-    "quality-fix": "npm run type-check && npm run lint-fix && npm run format"
+    "quality": "pnpm run type-check && pnpm run lint && pnpm run format-check",
+    "quality-fix": "pnpm run type-check && pnpm run lint-fix && pnpm run format"
   },
   "browserslist": {
     "production": [
