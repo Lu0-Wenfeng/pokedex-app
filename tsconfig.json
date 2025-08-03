@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext",
-    ],
+    "target": "es2023",
+    "lib": ["dom", "dom.iterable", "es2023"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -45,10 +41,7 @@
     "noPropertyAccessFromIndexSignature": true,
     "useUnknownInCatchVariables": true
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-  ],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": [
     "node_modules",
     "build",
@@ -57,6 +50,5 @@
     "**/*.stories.ts",
     "**/*.test.tsx",
     "**/*.test.ts"
-
   ]
 }
