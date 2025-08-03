@@ -46,14 +46,8 @@ export type AsyncEventHandlerWithParam<P, T = void> = (param: P) => Promise<T>;
 export type ClickHandler = EventHandler<void>;
 export type ChangeHandler<T = string> = EventHandlerWithParam<T, void>;
 export type SubmitHandler = EventHandlerWithParam<React.FormEvent, void>;
-export type InputChangeHandler = EventHandlerWithParam<
-  React.ChangeEvent<HTMLInputElement>,
-  void
->;
-export type SelectChangeHandler = EventHandlerWithParam<
-  React.ChangeEvent<HTMLSelectElement>,
-  void
->;
+export type InputChangeHandler = EventHandlerWithParam<React.ChangeEvent<HTMLInputElement>, void>;
+export type SelectChangeHandler = EventHandlerWithParam<React.ChangeEvent<HTMLSelectElement>, void>;
 
 // Component prop utility types
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
@@ -149,13 +143,7 @@ export interface ModalState {
 
 // Theme utility types
 export type ThemeMode = 'light' | 'dark';
-export type ColorScheme =
-  | 'primary'
-  | 'secondary'
-  | 'success'
-  | 'warning'
-  | 'error'
-  | 'info';
+export type ColorScheme = 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info';
 
 // Size utility types
 export type ComponentSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -197,8 +185,9 @@ export type Comparator<T> = (a: T, b: T) => number;
 
 // Promise utility types
 export type PromiseValue<T> = T extends Promise<infer U> ? U : T;
-export type PromiseReturnType<T extends (...args: never[]) => unknown> =
-  PromiseValue<ReturnType<T>>;
+export type PromiseReturnType<T extends (...args: never[]) => unknown> = PromiseValue<
+  ReturnType<T>
+>;
 
 // Array utility types
 export type ArrayElement<T> = T extends (infer U)[] ? U : never;
@@ -214,11 +203,7 @@ export type DeepRequired<T> = {
 };
 
 // String utility types
-export type StringLiteral<T> = T extends string
-  ? string extends T
-    ? never
-    : T
-  : never;
+export type StringLiteral<T> = T extends string ? (string extends T ? never : T) : never;
 export type Capitalize<T extends string> = T extends `${infer F}${infer R}`
   ? `${Uppercase<F>}${R}`
   : T;

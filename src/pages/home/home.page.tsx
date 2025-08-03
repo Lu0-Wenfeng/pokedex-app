@@ -8,7 +8,8 @@ import PokemonCard from '@components/pokemonCard/pokemonCard';
 import PokemonContext from '@context/pokemonContext/pokmon.context';
 import DetailPage from '@pages/details/details.page';
 import '@styles/common.scss';
-import React, { useContext, useMemo, useState } from 'react';
+import type React from 'react';
+import { useContext, useMemo, useState } from 'react';
 import { Button, Col, Row } from 'rsuite';
 import './home.scss';
 
@@ -25,7 +26,7 @@ const HomePage: React.FC<HomePageProps> = () => {
   const { pokemonsList, isLoading, isLoadMoreInprogress } = state;
 
   const toggleModal = (): void => {
-    setToggleSelect(prevState => !prevState);
+    setToggleSelect((prevState) => !prevState);
   };
 
   const pokemonsListView = useMemo(
@@ -42,7 +43,7 @@ const HomePage: React.FC<HomePageProps> = () => {
           />
         </div>
       )),
-    [pokemonsList]
+    [pokemonsList],
   );
 
   const handleLoadMoreClick = (): void => {
@@ -82,11 +83,7 @@ const HomePage: React.FC<HomePageProps> = () => {
         {pokemonsList.length > 0 && (
           <div>
             <div className="card-list">{pokemonsListView}</div>
-            <div>
-              {isLoadMoreInprogress && (
-                <Apploader className="loadmore-loader" />
-              )}
-            </div>
+            <div>{isLoadMoreInprogress && <Apploader className="loadmore-loader" />}</div>
           </div>
         )}
 

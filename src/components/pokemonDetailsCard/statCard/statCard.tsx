@@ -1,7 +1,9 @@
-import React from 'react';
 import { Col, Grid, Row } from 'rsuite';
-import type { StatCardProps } from '@app-types/component.types';
+
 import { getCamleCaseString } from '@constants/pokemon.types';
+
+import type { StatCardProps } from '@app-types/component.types';
+import type React from 'react';
 import './statCard.scss';
 
 const StatCard: React.FC<StatCardProps> = ({ stats }) => {
@@ -25,21 +27,12 @@ const StatCard: React.FC<StatCardProps> = ({ stats }) => {
         <div>
           <Grid fluid>
             <Row className="show-grid">
-              {stats?.map(item => (
-                <Col
-                  key={item.stat.name}
-                  className="pl-0 pt-1"
-                  lg={12}
-                  xl={12}
-                  xs={24}
-                  sm={24}
-                >
+              {stats?.map((item) => (
+                <Col key={item.stat.name} className="pl-0 pt-1" lg={12} xl={12} xs={24} sm={24}>
                   <div className="stat-flex-row">
                     <Col xs={4} lg={8} xl={8} className="pl-0 pr-0">
                       <div>
-                        <span className="prop-header">
-                          {getStatHeading(item.stat.name)}
-                        </span>
+                        <span className="prop-header">{getStatHeading(item.stat.name)}</span>
                       </div>
                     </Col>
                     <Col xs={8} lg={10} xl={10} className="pl-0 pr-0">

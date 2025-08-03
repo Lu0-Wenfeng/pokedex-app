@@ -1,14 +1,11 @@
-import React from 'react';
-import type { PokemonCardProps } from '@app-types/component.types';
 import { getBackground } from '@constants/pokemon.types';
 import { numberFormation } from '@services/common.service';
+
+import type { PokemonCardProps } from '@app-types/component.types';
+import type React from 'react';
 import './pokemonCard.scss';
 
-const PokemonCard: React.FC<PokemonCardProps> = ({
-  data,
-  onClick,
-  className = '',
-}) => {
+const PokemonCard: React.FC<PokemonCardProps> = ({ data, onClick, className = '' }) => {
   const imageUrl =
     data.sprites.other.dream_world.front_default ??
     data.sprites.front_default ??

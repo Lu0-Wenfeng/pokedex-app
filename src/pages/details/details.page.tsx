@@ -1,11 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Loader, Modal, Placeholder } from 'rsuite';
-import type { DetailPageProps } from '@app-types/component.types';
-import type {
-  Pokemon,
-  PokemonSpecies,
-  PokemonTypeData,
-} from '@app-types/pokemon.types';
+
 import DetailsHeader from '@components/pokemonDetailsCard/detailsHeader/detailsHeader';
 import EvolutionChainCard from '@components/pokemonDetailsCard/evolutionChainCard/evolutionChainCard';
 import PropertyCard from '@components/pokemonDetailsCard/propertyCard/propertyCard';
@@ -15,6 +10,10 @@ import {
   getPokemonTypesById,
   getSpeciesDataById,
 } from '@services/common.service';
+
+import type { DetailPageProps } from '@app-types/component.types';
+import type { Pokemon, PokemonSpecies, PokemonTypeData } from '@app-types/pokemon.types';
+import type React from 'react';
 import './details.page.scss';
 
 const DetailPage: React.FC<DetailPageProps> = ({
@@ -27,10 +26,8 @@ const DetailPage: React.FC<DetailPageProps> = ({
   const [data, setPokemonData] = useState<Pokemon | null>(null);
   const [isDetailLoading, setLoading] = useState<boolean>(true);
 
-  const [pokemonSpeciesData, setPokemonSpeciesData] =
-    useState<PokemonSpecies>();
-  const [pokemonTypeData, setPokemonTypeData] =
-    useState<PokemonTypeData | null>(null);
+  const [pokemonSpeciesData, setPokemonSpeciesData] = useState<PokemonSpecies>();
+  const [pokemonTypeData, setPokemonTypeData] = useState<PokemonTypeData | null>(null);
 
   const handleClose = (): void => {
     toggleModal();
@@ -89,12 +86,7 @@ const DetailPage: React.FC<DetailPageProps> = ({
         <div className="model-container">
           <Modal.Header closeButton={false} className="rs-modal-header-2">
             {isDetailLoading && (
-              <Placeholder.Paragraph
-                style={{ marginTop: 30 }}
-                rows={5}
-                graph="image"
-                active
-              />
+              <Placeholder.Paragraph style={{ marginTop: 30 }} rows={5} graph="image" active />
             )}
             {!isDetailLoading && (
               <div>
@@ -127,9 +119,7 @@ const DetailPage: React.FC<DetailPageProps> = ({
               <EvolutionChainCard data={data} />
             </div>
           </Modal.Header>
-          <Modal.Body>
-            {/* Future: Additional content can be added here */}
-          </Modal.Body>
+          <Modal.Body>{/* Future: Additional content can be added here */}</Modal.Body>
         </div>
       ) : (
         <div style={{ textAlign: 'center' }}>

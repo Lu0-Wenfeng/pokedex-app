@@ -3,7 +3,7 @@ import type { EvolutionChainCardProps } from '@app-types/component.types';
 import rightArrowIcon from '@assets/icons/right-arrow.png';
 import PokemonCard from '@components/pokemonCard/pokemonCard';
 import '@styles/common.scss';
-import React from 'react'; // eslint-disable-line import/order
+import type React from 'react'; // eslint-disable-line import/order
 import './evolutionChainCard.scss';
 
 const EvolutionChainCard: React.FC<EvolutionChainCardProps> = ({ data }) => {
@@ -23,11 +23,7 @@ const EvolutionChainCard: React.FC<EvolutionChainCardProps> = ({ data }) => {
             <div className="flex-row" key={stage}>
               <div>
                 <div className="pt-2">
-                  <PokemonCard
-                    className="disabled-click"
-                    key={`${data.id}-${stage}`}
-                    data={data}
-                  />
+                  <PokemonCard className="disabled-click" key={`${data.id}-${stage}`} data={data} />
                 </div>
               </div>
               {evolutionStages.length !== index + 1 && (

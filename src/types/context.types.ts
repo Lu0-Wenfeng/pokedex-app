@@ -1,7 +1,7 @@
 // Context and state management type definitions
 
-import type React from 'react';
 import type { Pokemon, PokemonListItem } from './pokemon.types';
+import type React from 'react';
 
 // Pokemon application state interface
 export interface PokemonState {
@@ -33,9 +33,7 @@ export interface PokemonContextValue {
   state: PokemonState;
   dispatch: React.Dispatch<PokemonAction>;
   getPokemonData: (isReset?: boolean) => Promise<void>;
-  getPokemonDetailsListByUrl: (
-    results: PokemonListItem[]
-  ) => Promise<Pokemon[]>;
+  getPokemonDetailsListByUrl: (results: PokemonListItem[]) => Promise<Pokemon[]>;
   setAppLoading: (loading: boolean) => void;
 }
 
@@ -56,10 +54,7 @@ export interface PokemonProviderProps {
 }
 
 // Reducer function type
-export type PokemonReducer = (
-  state: PokemonState,
-  action: PokemonAction
-) => PokemonState;
+export type PokemonReducer = (state: PokemonState, action: PokemonAction) => PokemonState;
 
 // Action creators type definitions
 export interface PokemonActionCreators {
@@ -81,9 +76,7 @@ export interface UsePokemonContext {
   dispatch: React.Dispatch<PokemonAction>;
   actions: {
     getPokemonData: (isReset?: boolean) => Promise<void>;
-    getPokemonDetailsListByUrl: (
-      results: PokemonListItem[]
-    ) => Promise<Pokemon[]>;
+    getPokemonDetailsListByUrl: (results: PokemonListItem[]) => Promise<Pokemon[]>;
     setAppLoading: (loading: boolean) => void;
   };
 }

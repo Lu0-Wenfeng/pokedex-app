@@ -1,20 +1,14 @@
 import React, { useCallback, useEffect, useReducer, useRef } from 'react';
-import type {
-  PokemonContextValue,
-  PokemonProviderProps,
-} from '@app-types/context.types';
-import type {
-  Pokemon,
-  PokemonListItem,
-  PokemonListResponse,
-} from '@app-types/pokemon.types';
+
 import { allPokemonURL, initialURL } from '@services/common.service';
 import { initialState, reducer } from '@store/reducers/reducer';
+
 import PokemonContext from './pokmon.context';
 
-export const PokemonProvider: React.FC<PokemonProviderProps> = ({
-  children,
-}) => {
+import type { PokemonContextValue, PokemonProviderProps } from '@app-types/context.types';
+import type { Pokemon, PokemonListItem, PokemonListResponse } from '@app-types/pokemon.types';
+
+export const PokemonProvider: React.FC<PokemonProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const batchURL = useRef<string | null>(initialURL);
   const isLoadingRef = useRef<boolean>(false);
@@ -26,7 +20,7 @@ export const PokemonProvider: React.FC<PokemonProviderProps> = ({
         payload: loading,
       });
     },
-    [dispatch]
+    [dispatch],
   );
 
   const setLoadMoreDataInprogress = useCallback(
@@ -36,7 +30,7 @@ export const PokemonProvider: React.FC<PokemonProviderProps> = ({
         payload: loading,
       });
     },
-    [dispatch]
+    [dispatch],
   );
 
   const setPokemonList = useCallback(
@@ -46,7 +40,7 @@ export const PokemonProvider: React.FC<PokemonProviderProps> = ({
         payload: pokemonsList,
       });
     },
-    [dispatch]
+    [dispatch],
   );
 
   const getPokemonDetailsListByUrl = useCallback(
@@ -57,14 +51,12 @@ export const PokemonProvider: React.FC<PokemonProviderProps> = ({
             const response = await fetch(pokemon.url);
 
             if (!response.ok) {
-              throw new Error(
-                `Failed to fetch Pokemon details: ${response.statusText}`
-              );
+              throw new Error(`Failed to fetch Pokemon details: ${response.statusText}`);
             }
 
             const res: Pokemon = await response.json();
             return res;
-          })
+          }),
         );
         return pokemonsDetailsList;
       } catch (error) {
@@ -73,7 +65,7 @@ export const PokemonProvider: React.FC<PokemonProviderProps> = ({
         return [];
       }
     },
-    []
+    [],
   );
 
   const getPokemonData = useCallback(
@@ -108,7 +100,7 @@ export const PokemonProvider: React.FC<PokemonProviderProps> = ({
         setLoadMoreDataInprogress(false);
       }
     },
-    [getPokemonDetailsListByUrl, setLoadMoreDataInprogress, setPokemonList]
+    [getPokemonDetailsListByUrl, setLoadMoreDataInprogress, setPokemonList],
   );
 
   const getAllPokemonDataList = useCallback(async (): Promise<void> => {
@@ -150,14 +142,10 @@ export const PokemonProvider: React.FC<PokemonProviderProps> = ({
       getPokemonDetailsListByUrl,
       setAppLoading,
     }),
-    [state, dispatch, getPokemonData, getPokemonDetailsListByUrl, setAppLoading]
+    [state, dispatch, getPokemonData, getPokemonDetailsListByUrl, setAppLoading],
   );
 
-  return (
-    <PokemonContext.Provider value={contextValue}>
-      {children}
-    </PokemonContext.Provider>
-  );
+  return <PokemonContext.Provider value={contextValue}>{children}</PokemonContext.Provider>;
 };
 
 export default PokemonProvider;

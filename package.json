@@ -15,7 +15,6 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "prestart": "npm run quality-fix",
     "prebuild": "rimraf build && npm run quality",
     "start": "rsbuild dev",
     "build": "rsbuild build",

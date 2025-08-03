@@ -8,7 +8,7 @@ import { getPokemonDescription } from '@constants/pokemon.types';
 import AppTooltip from '@hooks/tooltip/tooltip';
 import { numberFormation } from '@services/common.service';
 import '@styles/common.scss';
-import React from 'react'; // eslint-disable-line import/order
+import type React from 'react'; // eslint-disable-line import/order
 import './detailsHeader.scss';
 
 const DetailsHeader: React.FC<DetailsHeaderProps> = ({

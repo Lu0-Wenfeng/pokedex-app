@@ -1,8 +1,4 @@
-import type {
-  PokemonAction,
-  PokemonReducer,
-  PokemonState,
-} from '@app-types/context.types';
+import type { PokemonAction, PokemonReducer, PokemonState } from '@app-types/context.types';
 
 export const initialState: PokemonState = {
   pokemonsList: [],
@@ -17,7 +13,7 @@ export const initialState: PokemonState = {
 
 export const reducer: PokemonReducer = (
   state: PokemonState,
-  action: PokemonAction
+  action: PokemonAction,
 ): PokemonState => {
   switch (action.type) {
     case 'ACTIONS.SET_POKEMON_LIST':

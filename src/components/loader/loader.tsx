@@ -1,6 +1,7 @@
-import React from 'react';
 import { Loader } from 'rsuite';
+
 import type { LoaderProps } from '@app-types/component.types';
+import type React from 'react';
 
 const Apploader: React.FC<LoaderProps> = ({ className }) => (
   <div className={className}>

@@ -108,9 +108,7 @@ export type PokemonTypeName = keyof typeof POKEMON_TYPE;
 
 export const getPokcolor = (type: string): string => {
   const pokemonType = type as PokemonTypeName;
-  return POKEMON_TYPE[pokemonType]
-    ? POKEMON_TYPE[pokemonType].color
-    : POKEMON_TYPE.unknown.color;
+  return POKEMON_TYPE[pokemonType] ? POKEMON_TYPE[pokemonType].color : POKEMON_TYPE.unknown.color;
 };
 
 export const getBackground = (pokemonTypes: PokemonType[]): string => {
@@ -131,7 +129,7 @@ export const getBackground = (pokemonTypes: PokemonType[]): string => {
         type: { name: pokemontype2 },
       } = secondType;
       color = `linear-gradient(180deg, ${getPokcolor(
-        pokemontype1
+        pokemontype1,
       )} 0%, ${getPokcolor(pokemontype2)} 100%)`;
     } else {
       color = getPokcolor(pokemontype1);
@@ -144,10 +142,7 @@ export const getPokemonDescription = (data: FlavorTextEntry[] = []): string => {
   if (data.length) {
     const uniqueTextArray: string[] = [];
     return data.reduce((acc, next) => {
-      if (
-        next.language.name === 'en' &&
-        !uniqueTextArray.includes(next.flavor_text)
-      ) {
+      if (next.language.name === 'en' && !uniqueTextArray.includes(next.flavor_text)) {
         uniqueTextArray.push(next.flavor_text);
         return acc + next.flavor_text.replace(/\n|\f/g, ' ');
       }

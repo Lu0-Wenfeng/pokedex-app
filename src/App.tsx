@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 import { ROUTES } from '@constants/routepaths';
 import { PokemonProvider } from '@context/pokemonContext/pokemon.provider';
 import 'rsuite/dist/rsuite.min.css';

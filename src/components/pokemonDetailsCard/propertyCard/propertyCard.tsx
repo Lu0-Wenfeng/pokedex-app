@@ -3,20 +3,14 @@ import type { PropertyCardProps } from '@app-types/component.types';
 import ColorfulTag from '@components/pokemonDetailsCard/colorfulTags/colorfulTag';
 import { getCamleCaseString } from '@constants/pokemon.types';
 import '@styles/common.scss';
-import React from 'react';
+import type React from 'react';
 import { Col, Grid, Row } from 'rsuite';
 import './propertyCard.scss';
 
-const PropertyCard: React.FC<PropertyCardProps> = ({
-  speciesData,
-  data,
-  pokemonTypeData,
-}) => {
-  const formatWeight = (weight: number): string =>
-    `${(weight / 10).toFixed(1)} Kg`;
+const PropertyCard: React.FC<PropertyCardProps> = ({ speciesData, data, pokemonTypeData }) => {
+  const formatWeight = (weight: number): string => `${(weight / 10).toFixed(1)} Kg`;
 
-  const formatHeight = (height: number): string =>
-    `${(height / 10).toFixed(1)} m`;
+  const formatHeight = (height: number): string => `${(height / 10).toFixed(1)} m`;
 
   return (
     <div className="property-container">
@@ -27,9 +21,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
               <div>
                 <span className="prop-header">Height</span>
               </div>
-              <div className="prop-header-data">
-                {formatHeight(data.height)}
-              </div>
+              <div className="prop-header-data">{formatHeight(data.height)}</div>
             </div>
           </Col>
           <Col xs={12} sm={12} lg={6} xl={6}>
@@ -37,9 +29,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
               <div>
                 <span className="prop-header">Weight</span>
               </div>
-              <div className="prop-header-data">
-                {formatWeight(data.weight)}
-              </div>
+              <div className="prop-header-data">{formatWeight(data.weight)}</div>
             </div>
           </Col>
           <Col xs={12} sm={12} lg={6} xl={6}>
@@ -59,9 +49,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
                 speciesData.egg_groups.map((item, index) => (
                   <span key={item.name} className="prop-header-data">
                     {getCamleCaseString(item.name)}
-                    {speciesData.egg_groups.length !== index + 1 && (
-                      <span>,</span>
-                    )}
+                    {speciesData.egg_groups.length !== index + 1 && <span>,</span>}
                   </span>
                 ))}
             </div>
@@ -90,7 +78,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
               <div className="prop-header-data">
                 <div className="type-wrap">
                   {data.types.length &&
-                    data.types.map(item => (
+                    data.types.map((item) => (
                       <ColorfulTag
                         className="pr-1"
                         key={item.type.name}
@@ -108,18 +96,15 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
                 <span className="prop-header">Weak Against</span>
               </div>
               <div className="prop-header-data type-wrap">
-                {pokemonTypeData?.damage_relations?.double_damage_from
-                  ?.length &&
-                  pokemonTypeData.damage_relations.double_damage_from.map(
-                    item => (
-                      <ColorfulTag
-                        key={item.name}
-                        className="pr-1"
-                        type={item.name}
-                        text={getCamleCaseString(item.name)}
-                      />
-                    )
-                  )}
+                {pokemonTypeData?.damage_relations?.double_damage_from?.length &&
+                  pokemonTypeData.damage_relations.double_damage_from.map((item) => (
+                    <ColorfulTag
+                      key={item.name}
+                      className="pr-1"
+                      type={item.name}
+                      text={getCamleCaseString(item.name)}
+                    />
+                  ))}
               </div>
             </div>
           </Col>

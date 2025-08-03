@@ -1,5 +1,7 @@
 // Pokemon API service functions with TypeScript typing
 
+import { LIMIT, baseURL } from '@constants/apiUrls';
+
 import type {
   EvolutionChain,
   GenderListResponse,
@@ -9,7 +11,6 @@ import type {
   PokemonTypeData,
   TypeListResponse,
 } from '@app-types/pokemon.types';
-import { LIMIT, baseURL } from '@constants/apiUrls';
 
 // API endpoint URLs
 export const initialURL: string = `${baseURL}/pokemon?limit=${LIMIT}`;
@@ -26,28 +27,20 @@ export const getPokemonData = async (): Promise<PokemonListResponse> => {
 };
 
 // Pokemon species API call
-export const getSpeciesDataById = async (
-  id: number
-): Promise<PokemonSpecies> => {
+export const getSpeciesDataById = async (id: number): Promise<PokemonSpecies> => {
   const response = await fetch(`${baseURL}/pokemon-species/${id}/`);
   if (!response.ok) {
-    throw new Error(
-      `Failed to fetch species data for ID ${id}: ${response.statusText}`
-    );
+    throw new Error(`Failed to fetch species data for ID ${id}: ${response.statusText}`);
   }
   const result = await response.json();
   return result;
 };
 
 // Pokemon type data API call
-export const getPokemonTypesById = async (
-  id: number
-): Promise<PokemonTypeData> => {
+export const getPokemonTypesById = async (id: number): Promise<PokemonTypeData> => {
   const response = await fetch(`${baseURL}/type/${id}/`);
   if (!response.ok) {
-    throw new Error(
-      `Failed to fetch type data for ID ${id}: ${response.statusText}`
-    );
+    throw new Error(`Failed to fetch type data for ID ${id}: ${response.statusText}`);
   }
   const result = await response.json();
   return result;
@@ -77,9 +70,7 @@ export const getPokemonGenders = async (): Promise<GenderListResponse> => {
 export const getPokemonDataById = async (id: number): Promise<Pokemon> => {
   const response = await fetch(`${baseURL}/pokemon/${id}/`);
   if (!response.ok) {
-    throw new Error(
-      `Failed to fetch Pokemon data for ID ${id}: ${response.statusText}`
-    );
+    throw new Error(`Failed to fetch Pokemon data for ID ${id}: ${response.statusText}`);
   }
   const result = await response.json();
   return result;
@@ -89,9 +80,7 @@ export const getPokemonDataById = async (id: number): Promise<Pokemon> => {
 export const getPokemonDataByURL = async (url: string): Promise<Pokemon> => {
   const response = await fetch(url);
   if (!response.ok) {
-    throw new Error(
-      `Failed to fetch Pokemon data from URL ${url}: ${response.statusText}`
-    );
+    throw new Error(`Failed to fetch Pokemon data from URL ${url}: ${response.statusText}`);
   }
   const result = await response.json();
   return result;
@@ -121,20 +110,16 @@ export interface ParallelApiResponse {
 }
 
 // Parallel API calls utility
-export const getAllParallelCall = async (
-  apiUrls: string[]
-): Promise<ParallelApiResponse[]> => {
+export const getAllParallelCall = async (apiUrls: string[]): Promise<ParallelApiResponse[]> => {
   try {
     const results = await Promise.all(
       apiUrls.map(async (url: string) => {
         const response = await fetch(url);
         if (!response.ok) {
-          throw new Error(
-            `Failed to fetch from ${url}: ${response.statusText}`
-          );
+          throw new Error(`Failed to fetch from ${url}: ${response.statusText}`);
         }
         return response.json();
-      })
+      }),
     );
     return results;
   } catch (error) {
@@ -156,9 +141,7 @@ export const fetchWithErrorHandling = async <T>(url: string): Promise<T> => {
     const response = await fetch(url);
 
     if (!response.ok) {
-      throw new Error(
-        `HTTP error! status: ${response.status}, statusText: ${response.statusText}`
-      );
+      throw new Error(`HTTP error! status: ${response.status}, statusText: ${response.statusText}`);
     }
 
     const data = await response.json();
@@ -171,13 +154,9 @@ export const fetchWithErrorHandling = async <T>(url: string): Promise<T> => {
 };
 
 // Batch Pokemon data fetching
-export const getBatchPokemonData = async (
-  urls: string[]
-): Promise<Pokemon[]> => {
+export const getBatchPokemonData = async (urls: string[]): Promise<Pokemon[]> => {
   try {
-    const pokemonData = await Promise.all(
-      urls.map(url => fetchWithErrorHandling<Pokemon>(url))
-    );
+    const pokemonData = await Promise.all(urls.map((url) => fetchWithErrorHandling<Pokemon>(url)));
     return pokemonData;
   } catch (error) {
     // eslint-disable-next-line no-console
@@ -205,9 +184,7 @@ export const searchPokemon = async (query: string): Promise<Pokemon | null> => {
 };
 
 // Get Pokemon evolution chain
-export const getEvolutionChain = async (
-  url: string
-): Promise<EvolutionChain | null> => {
+export const getEvolutionChain = async (url: string): Promise<EvolutionChain | null> => {
   try {
     const evolutionData = await fetchWithErrorHandling<EvolutionChain>(url);
     return evolutionData;
@@ -222,12 +199,10 @@ export const getEvolutionChain = async (
 export const isValidPokemonId = (id: number): boolean => id > 0 && id <= 1010; // Current max Pokemon ID (as of 2024)
 
 // Format Pokemon weight (from hectograms to kg)
-export const formatWeight = (weight: number): string =>
-  `${(weight / 10).toFixed(1)} kg`;
+export const formatWeight = (weight: number): string => `${(weight / 10).toFixed(1)} kg`;
 
 // Format Pokemon height (from decimeters to meters)
-export const formatHeight = (height: number): string =>
-  `${(height / 10).toFixed(1)} m`;
+export const formatHeight = (height: number): string => `${(height / 10).toFixed(1)} m`;
 
 // Get Pokemon type effectiveness
 export const getTypeEffectiveness = (): number =>
