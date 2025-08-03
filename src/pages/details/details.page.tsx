@@ -1,3 +1,7 @@
+import type { DetailPageProps } from '@app-types/component.types';
+import type { Pokemon, PokemonSpecies, PokemonTypeData } from '@app-types/pokemon.types';
+import type React from 'react';
+
 import { useEffect, useState } from 'react';
 import { Loader, Modal, Placeholder } from 'rsuite';
 
@@ -11,9 +15,6 @@ import {
   getSpeciesDataById,
 } from '@services/common.service';
 
-import type { DetailPageProps } from '@app-types/component.types';
-import type { Pokemon, PokemonSpecies, PokemonTypeData } from '@app-types/pokemon.types';
-import type React from 'react';
 import './details.page.scss';
 
 const DetailPage: React.FC<DetailPageProps> = ({

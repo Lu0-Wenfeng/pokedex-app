@@ -1,12 +1,12 @@
+import type { PokemonContextValue, PokemonProviderProps } from '@app-types/context.types';
+import type { Pokemon, PokemonListItem, PokemonListResponse } from '@app-types/pokemon.types';
+
 import React, { useCallback, useEffect, useReducer, useRef } from 'react';
 
 import { allPokemonURL, initialURL } from '@services/common.service';
 import { initialState, reducer } from '@store/reducers/reducer';
 
 import PokemonContext from './pokmon.context';
-
-import type { PokemonContextValue, PokemonProviderProps } from '@app-types/context.types';
-import type { Pokemon, PokemonListItem, PokemonListResponse } from '@app-types/pokemon.types';
 
 export const PokemonProvider: React.FC<PokemonProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);

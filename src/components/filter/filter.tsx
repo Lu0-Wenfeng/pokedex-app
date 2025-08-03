@@ -1,5 +1,8 @@
 import type { FilterProps } from '@app-types/component.types';
 import type { GenderOption, TypeOption } from '@app-types/context.types';
+import type { Pokemon, PokemonListItem } from '@app-types/pokemon.types';
+import type React from 'react';
+import type { Observable } from 'rxjs';
 
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { Col, Row } from 'rsuite';
@@ -18,10 +21,6 @@ import {
 import './filter.scss';
 import AppMultiSelectDropDown from './multiSelectdropDown/multiSelectdropDown';
 import SearchFilter from './search/search.filter';
-
-import type { Pokemon, PokemonListItem } from '@app-types/pokemon.types';
-import type React from 'react';
-import type { Observable } from 'rxjs';
 
 const AppFilter: React.FC<FilterProps> = ({ isFilterEnable }) => {
   const context = useContext(PokemonContext);

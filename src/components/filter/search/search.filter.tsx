@@ -1,7 +1,8 @@
+import type { SearchFilterProps } from '@app-types/component.types';
+
 import SearchIcon from '@rsuite/icons/Search';
 import { Input, InputGroup } from 'rsuite';
 
-import type { SearchFilterProps } from '@app-types/component.types';
 import './search.filter.scss';
 
 const SearchFilter = ({

@@ -1,7 +1,5 @@
 // Pokemon API service functions with TypeScript typing
 
-import { LIMIT, baseURL } from '@constants/apiUrls';
-
 import type {
   EvolutionChain,
   GenderListResponse,
@@ -11,6 +9,8 @@ import type {
   PokemonTypeData,
   TypeListResponse,
 } from '@app-types/pokemon.types';
+
+import { LIMIT, baseURL } from '@constants/apiUrls';
 
 // API endpoint URLs
 export const initialURL: string = `${baseURL}/pokemon?limit=${LIMIT}`;

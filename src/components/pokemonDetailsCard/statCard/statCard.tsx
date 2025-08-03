@@ -1,9 +1,10 @@
+import type { StatCardProps } from '@app-types/component.types';
+import type React from 'react';
+
 import { Col, Grid, Row } from 'rsuite';
 
 import { getCamleCaseString } from '@constants/pokemon.types';
 
-import type { StatCardProps } from '@app-types/component.types';
-import type React from 'react';
 import './statCard.scss';
 
 const StatCard: React.FC<StatCardProps> = ({ stats }) => {

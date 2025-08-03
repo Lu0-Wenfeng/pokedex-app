@@ -23,7 +23,13 @@
       "version": "detect"
     },
     "import/resolver": {
-      "typescript": {}
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "./tsconfig.json"
+      }
+    },
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
     }
   },
   "parser": "@typescript-eslint/parser",
@@ -39,7 +45,10 @@
     "build/**",
     "dist/**",
     "node_modules/**",
-    "rsbuild.config.ts"
+    "rsbuild.config.ts",
+    "**/*.test.{ts,tsx}",
+    "**/*.spec.{ts,tsx}",
+    "src/reportWebVitals.js"
   ],
   "rules": {
     "react-hooks/rules-of-hooks": "error",
@@ -54,17 +63,31 @@
       "warn",
       {
         "groups": [
+          "type",
           "builtin",
           "external",
           "internal",
           "parent",
           "sibling",
           "index",
-          "object",
-          "type"
+          "object"
         ],
+        "pathGroups": [
+          {
+            "pattern": "@app-types/**",
+            "group": "type",
+            "position": "before"
+          },
+          {
+            "pattern": "@**",
+            "group": "internal",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["type"],
         "newlines-between": "always",
-        "alphabetize": { "order": "asc", "caseInsensitive": true }
+        "alphabetize": { "order": "asc", "caseInsensitive": true },
+        "distinctGroup": false
       }
     ],
     "no-console": "warn"
