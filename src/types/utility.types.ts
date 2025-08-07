@@ -50,28 +50,23 @@ export type InputChangeHandler = EventHandlerWithParam<React.ChangeEvent<HTMLInp
 export type SelectChangeHandler = EventHandlerWithParam<React.ChangeEvent<HTMLSelectElement>, void>;
 
 // Component prop utility types
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export type WithChildren<T = {}> = T & {
+export type WithChildren<T = Record<string, never>> = T & {
   children?: React.ReactNode;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export type WithClassName<T = {}> = T & {
+export type WithClassName<T = Record<string, never>> = T & {
   className?: string;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export type WithOptionalClassName<T = {}> = T & {
+export type WithOptionalClassName<T = Record<string, never>> = T & {
   className?: string;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export type WithTestId<T = {}> = T & {
+export type WithTestId<T = Record<string, never>> = T & {
   'data-testid'?: string;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export type WithAriaLabel<T = {}> = T & {
+export type WithAriaLabel<T = Record<string, never>> = T & {
   'aria-label'?: string;
 };
 

@@ -4,7 +4,6 @@ import type React from 'react';
 import { forwardRef } from 'react';
 import { Popover, Whisper } from 'rsuite';
 
-// eslint-disable-next-line react/display-name
 const DefaultPopover = forwardRef<HTMLDivElement, DefaultPopoverProps>(
   ({ content, className, ...props }, ref) => (
     <Popover ref={ref} {...props} {...(className && { className })} arrow={false}>
@@ -12,6 +11,8 @@ const DefaultPopover = forwardRef<HTMLDivElement, DefaultPopoverProps>(
     </Popover>
   ),
 );
+
+DefaultPopover.displayName = 'DefaultPopover';
 
 const AppTooltip: React.FC<TooltipProps> = ({
   placement = 'bottom',

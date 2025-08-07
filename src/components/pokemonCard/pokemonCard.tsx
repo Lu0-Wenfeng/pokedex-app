@@ -1,8 +1,7 @@
 import type { PokemonCardProps } from '@app-types/component.types';
-import type React from 'react';
-
 import { getBackground } from '@constants/pokemon.types';
 import { numberFormation } from '@services/common.service';
+import type React from 'react';
 
 import './pokemonCard.scss';
 
@@ -13,10 +12,10 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ data, onClick, className = ''
     'https://via.placeholder.com/150';
 
   return (
-    <div
+    <button
+      type="button"
       className={`${className} card`}
       onClick={onClick}
-      role="presentation"
       style={{
         background: getBackground(data.types),
       }}
@@ -30,7 +29,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ data, onClick, className = ''
         </strong>
         <span>{numberFormation(data.id)}</span>
       </div>
-    </div>
+    </button>
   );
 };
 

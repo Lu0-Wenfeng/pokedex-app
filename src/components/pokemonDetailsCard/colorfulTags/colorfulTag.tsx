@@ -1,7 +1,6 @@
 import type { ColorfulTagProps } from '@app-types/component.types';
-import type React from 'react';
-
 import { getPokcolor } from '@constants/pokemon.types';
+import type React from 'react';
 import './colorfulTags.scss';
 
 const ColorfulTag: React.FC<ColorfulTagProps> = ({ text, className, type }) => (

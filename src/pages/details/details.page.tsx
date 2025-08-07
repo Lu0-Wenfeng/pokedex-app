@@ -1,10 +1,5 @@
 import type { DetailPageProps } from '@app-types/component.types';
 import type { Pokemon, PokemonSpecies, PokemonTypeData } from '@app-types/pokemon.types';
-import type React from 'react';
-
-import { useEffect, useState } from 'react';
-import { Loader, Modal, Placeholder } from 'rsuite';
-
 import DetailsHeader from '@components/pokemonDetailsCard/detailsHeader/detailsHeader';
 import EvolutionChainCard from '@components/pokemonDetailsCard/evolutionChainCard/evolutionChainCard';
 import PropertyCard from '@components/pokemonDetailsCard/propertyCard/propertyCard';
@@ -14,6 +9,9 @@ import {
   getPokemonTypesById,
   getSpeciesDataById,
 } from '@services/common.service';
+import type React from 'react';
+import { useEffect, useState } from 'react';
+import { Loader, Modal, Placeholder } from 'rsuite';
 
 import './details.page.scss';
 
@@ -50,7 +48,6 @@ const DetailPage: React.FC<DetailPageProps> = ({
         const typeResponse = await getPokemonTypesById(currentPokemonId);
         setPokemonTypeData(typeResponse);
       } catch (error) {
-        // eslint-disable-next-line no-console
         console.error('Error fetching Pokemon details:', error);
         setLoading(false);
       }

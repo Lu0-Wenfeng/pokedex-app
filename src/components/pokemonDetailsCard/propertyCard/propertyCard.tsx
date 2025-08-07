@@ -1,4 +1,3 @@
-/* eslint-disable import/order */
 import type { PropertyCardProps } from '@app-types/component.types';
 import ColorfulTag from '@components/pokemonDetailsCard/colorfulTags/colorfulTag';
 import { getCamleCaseString } from '@constants/pokemon.types';

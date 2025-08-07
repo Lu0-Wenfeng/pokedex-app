@@ -1,13 +1,6 @@
 import type { FilterProps } from '@app-types/component.types';
 import type { GenderOption, TypeOption } from '@app-types/context.types';
 import type { Pokemon, PokemonListItem } from '@app-types/pokemon.types';
-import type React from 'react';
-import type { Observable } from 'rxjs';
-
-import { useCallback, useContext, useEffect, useState } from 'react';
-import { Col, Row } from 'rsuite';
-import { debounceTime, distinctUntilChanged, map, of } from 'rxjs';
-
 import { baseURL, SEARCH_SLICED } from '@constants/apiUrls';
 import { getCamleCaseString } from '@constants/pokemon.types';
 import PokemonContext from '@context/pokemonContext/pokmon.context';
@@ -17,6 +10,11 @@ import {
   getPokemonTypes,
   removeDuplicateBy,
 } from '@services/common.service';
+import type React from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
+import { Col, Row } from 'rsuite';
+import type { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, of } from 'rxjs';
 
 import './filter.scss';
 import AppMultiSelectDropDown from './multiSelectdropDown/multiSelectdropDown';
@@ -127,7 +125,6 @@ const AppFilter: React.FC<FilterProps> = ({ isFilterEnable }) => {
           });
         })
         .catch((err: Error) => {
-          // eslint-disable-next-line no-console
           console.error('Error in type filter:', err);
         });
     } else {
@@ -174,7 +171,6 @@ const AppFilter: React.FC<FilterProps> = ({ isFilterEnable }) => {
           });
         })
         .catch((err: Error) => {
-          // eslint-disable-next-line no-console
           console.error('Error in gender filter:', err);
         });
     } else {
@@ -232,7 +228,6 @@ const AppFilter: React.FC<FilterProps> = ({ isFilterEnable }) => {
       const res = await getPokemonTypes();
       setPokemonTypes(res.results);
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.error('Error fetching Pokemon types:', err);
     }
   }, [setPokemonTypes]);
@@ -242,7 +237,6 @@ const AppFilter: React.FC<FilterProps> = ({ isFilterEnable }) => {
       const res = await getPokemonGenders();
       setPokemonGendersList(res.results);
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.error('Error fetching Pokemon genders:', err);
     }
   }, [setPokemonGendersList]);

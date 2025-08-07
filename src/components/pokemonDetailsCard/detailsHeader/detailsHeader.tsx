@@ -1,4 +1,3 @@
-/* eslint-disable import/order, react/prop-types */
 import type { DetailsHeaderProps } from '@app-types/component.types';
 import backIcon from '@assets/icons/back-icon.png';
 import closeIcon from '@assets/icons/close-icon.png';
@@ -8,7 +7,7 @@ import { getPokemonDescription } from '@constants/pokemon.types';
 import AppTooltip from '@hooks/tooltip/tooltip';
 import { numberFormation } from '@services/common.service';
 import '@styles/common.scss';
-import type React from 'react'; // eslint-disable-line import/order
+import type React from 'react';
 import './detailsHeader.scss';
 
 const DetailsHeader: React.FC<DetailsHeaderProps> = ({
@@ -51,27 +50,33 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
             <div className="horizontal-line" />
             <div>
               <div className="icon-wrap">
-                <img
-                  src={backIcon}
-                  alt="back icon to go backward"
+                <button
+                  type="button"
                   onClick={backClick}
                   onKeyDown={handleKeyDown}
-                  role="presentation"
-                />
-                <img
-                  src={closeIcon}
-                  alt="close icon to close modal"
+                  aria-label="Go back to previous Pokemon"
+                  className="icon-button"
+                >
+                  <img src={backIcon} alt="back icon to go backward" role="presentation" />
+                </button>
+                <button
+                  type="button"
                   onClick={closeClick}
                   onKeyDown={handleKeyDown}
-                  role="presentation"
-                />
-                <img
-                  src={rightIcon}
-                  alt="forward icon to go forward"
+                  aria-label="Close modal"
+                  className="icon-button"
+                >
+                  <img src={closeIcon} alt="close icon to close modal" role="presentation" />
+                </button>
+                <button
+                  type="button"
                   onClick={forwardClick}
                   onKeyDown={handleKeyDown}
-                  role="presentation"
-                />
+                  aria-label="Go forward to next Pokemon"
+                  className="icon-button"
+                >
+                  <img src={rightIcon} alt="forward icon to go forward" role="presentation" />
+                </button>
               </div>
             </div>
           </div>

@@ -10,7 +10,7 @@ import type {
   TypeListResponse,
 } from '@app-types/pokemon.types';
 
-import { LIMIT, baseURL } from '@constants/apiUrls';
+import { baseURL, LIMIT } from '@constants/apiUrls';
 
 // API endpoint URLs
 export const initialURL: string = `${baseURL}/pokemon?limit=${LIMIT}`;
@@ -123,7 +123,6 @@ export const getAllParallelCall = async (apiUrls: string[]): Promise<ParallelApi
     );
     return results;
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error('Error in parallel API calls:', error);
     throw error;
   }
@@ -147,7 +146,6 @@ export const fetchWithErrorHandling = async <T>(url: string): Promise<T> => {
     const data = await response.json();
     return data as T;
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error(`Error fetching data from ${url}:`, error);
     throw error;
   }
@@ -159,7 +157,6 @@ export const getBatchPokemonData = async (urls: string[]): Promise<Pokemon[]> =>
     const pokemonData = await Promise.all(urls.map((url) => fetchWithErrorHandling<Pokemon>(url)));
     return pokemonData;
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error('Error fetching batch Pokemon data:', error);
     throw error;
   }
@@ -177,7 +174,6 @@ export const searchPokemon = async (query: string): Promise<Pokemon | null> => {
     const pokemon = await fetchWithErrorHandling<Pokemon>(searchUrl);
     return pokemon;
   } catch {
-    // eslint-disable-next-line no-console
     console.warn(`Pokemon not found for query: ${query}`);
     return null;
   }
@@ -189,7 +185,6 @@ export const getEvolutionChain = async (url: string): Promise<EvolutionChain | n
     const evolutionData = await fetchWithErrorHandling<EvolutionChain>(url);
     return evolutionData;
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error('Error fetching evolution chain:', error);
     throw error;
   }

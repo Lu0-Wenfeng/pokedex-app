@@ -1,4 +1,3 @@
-/* eslint-disable import/order */
 import type { HomePageProps } from '@app-types/component.types';
 import type { Pokemon } from '@app-types/pokemon.types';
 import AppFilter from '@components/filter/filter';
@@ -9,7 +8,7 @@ import PokemonContext from '@context/pokemonContext/pokmon.context';
 import DetailPage from '@pages/details/details.page';
 import '@styles/common.scss';
 import type React from 'react';
-import { useContext, useMemo, useState } from 'react';
+import { useCallback, useContext, useMemo, useState } from 'react';
 import { Button, Col, Row } from 'rsuite';
 import './home.scss';
 
@@ -25,9 +24,9 @@ const HomePage: React.FC<HomePageProps> = () => {
   const { state, getPokemonData } = context;
   const { pokemonsList, isLoading, isLoadMoreInprogress } = state;
 
-  const toggleModal = (): void => {
+  const toggleModal = useCallback((): void => {
     setToggleSelect((prevState) => !prevState);
-  };
+  }, []);
 
   const pokemonsListView = useMemo(
     () =>
@@ -43,7 +42,7 @@ const HomePage: React.FC<HomePageProps> = () => {
           />
         </div>
       )),
-    [pokemonsList],
+    [pokemonsList, toggleModal],
   );
 
   const handleLoadMoreClick = (): void => {
@@ -56,7 +55,7 @@ const HomePage: React.FC<HomePageProps> = () => {
 
   return (
     <div className="home-container">
-      <main role="main">
+      <main>
         <div>
           <Header className="header-container">
             <Row className="app-header-wrap show-grid">

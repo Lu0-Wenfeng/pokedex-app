@@ -1,9 +1,7 @@
 import type { StatCardProps } from '@app-types/component.types';
-import type React from 'react';
-
-import { Col, Grid, Row } from 'rsuite';
-
 import { getCamleCaseString } from '@constants/pokemon.types';
+import type React from 'react';
+import { Col, Grid, Row } from 'rsuite';
 
 import './statCard.scss';
 

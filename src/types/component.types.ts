@@ -1,7 +1,7 @@
 // Component prop interfaces for TypeScript conversion
 
-import type { Pokemon, PokemonSpecies, PokemonStat, PokemonTypeData } from './pokemon.types';
 import type React from 'react';
+import type { Pokemon, PokemonSpecies, PokemonStat, PokemonTypeData } from './pokemon.types';
 
 // Common component props
 export interface BaseComponentProps {
@@ -117,10 +117,7 @@ export interface DropdownOption {
 }
 
 // Page component props
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface HomePageProps {
-  // No specific props for HomePage
-}
+export interface HomePageProps {}
 
 export interface DetailPageProps {
   isCardSelected: boolean;

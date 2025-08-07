@@ -1,0 +1,7 @@
+build/**
+dist/**
+node_modules/**
+**/*.test.{ts,tsx}
+**/*.spec.{ts,tsx}
+src/reportWebVitals.js
+*.log

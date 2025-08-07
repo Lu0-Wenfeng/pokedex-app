@@ -1,7 +1,7 @@
 // Context and state management type definitions
 
-import type { Pokemon, PokemonListItem } from './pokemon.types';
 import type React from 'react';
+import type { Pokemon, PokemonListItem } from './pokemon.types';
 
 // Pokemon application state interface
 export interface PokemonState {
