@@ -42,13 +42,11 @@
     "useUnknownInCatchVariables": true,
     "allowImportingTsExtensions": true
   },
-  "include": ["src"],
+  "include": ["src", ".storybook"],
   "exclude": [
     "node_modules",
     "build",
     "dist",
-    "**/*.stories.tsx",
-    "**/*.stories.ts",
     "**/*.test.tsx",
     "**/*.test.ts"
   ]

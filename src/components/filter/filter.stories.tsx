@@ -1,6 +1,6 @@
+import { PokemonProvider } from '@context/pokemonContext/pokemon.provider';
 import React from 'react';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
-import { PokemonProvider } from '../../context/pokemonContext/pokemon.provider';
 import AppFilter from './filter';
 
 // Mock context wrapper for Storybook

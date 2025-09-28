@@ -11,31 +11,6 @@ const config: StorybookConfig = {
   webpackAddons: [],
   rsbuildFinal: async (config) => {
     // Customize the final Rsbuild config here
-    if (config.server) {
-      config.server = {
-        ...config.server,
-        host: 'localhost',
-        port: 6006,
-        open: true,
-      };
-    }
-
-    if (config.resolve) {
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        '@assets': path.resolve(__dirname, '../src/assets'),
-        '@components': path.resolve(__dirname, '../src/components'),
-        '@constants': path.resolve(__dirname, '../src/constants'),
-        '@context': path.resolve(__dirname, '../src/context'),
-        '@hooks': path.resolve(__dirname, '../src/hooks'),
-        '@pages': path.resolve(__dirname, '../src/pages'),
-        '@services': path.resolve(__dirname, '../src/services'),
-        '@store': path.resolve(__dirname, '../src/store'),
-        '@styles': path.resolve(__dirname, '../src/styles'),
-        '@app-types': path.resolve(__dirname, '../src/types'),
-        '@': path.resolve(__dirname, '../src'),
-      };
-    }
     return config;
   },
   staticDirs: ['../public'],
@@ -45,6 +20,23 @@ const config: StorybookConfig = {
     reactDocgenTypescriptOptions: {
       shouldExtractLiteralValuesFromEnum: true,
       propFilter: (prop) => (prop.parent ? !/node_modules/.test(prop.parent.fileName) : true),
+      // Add path mapping for TypeScript to resolve aliases
+      compilerOptions: {
+        baseUrl: path.resolve(__dirname, '../'),
+        paths: {
+          '@assets/*': ['src/assets/*'],
+          '@components/*': ['src/components/*'],
+          '@constants/*': ['src/constants/*'],
+          '@context/*': ['src/context/*'],
+          '@hooks/*': ['src/hooks/*'],
+          '@pages/*': ['src/pages/*'],
+          '@services/*': ['src/services/*'],
+          '@store/*': ['src/store/*'],
+          '@styles/*': ['src/styles/*'],
+          '@app-types/*': ['src/types/*'],
+          '@/*': ['src/*'],
+        },
+      },
     },
   },
   core: {

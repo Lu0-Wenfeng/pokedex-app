@@ -1,7 +1,7 @@
+import type { DropdownOption } from '@app-types/component.types';
 import { useState } from 'react';
 import { CheckPicker } from 'rsuite';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
-import type { DropdownOption } from '../../../types/component.types';
 import AppMultiSelectDropDown from './multiSelectDropdown';
 
 // Sample data for different scenarios
