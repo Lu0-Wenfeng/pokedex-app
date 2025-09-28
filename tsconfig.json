@@ -41,7 +41,7 @@
     "noPropertyAccessFromIndexSignature": true,
     "useUnknownInCatchVariables": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", ".storybook/"],
   "exclude": [
     "node_modules",
     "build",
