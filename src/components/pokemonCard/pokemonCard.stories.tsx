@@ -1,8 +1,9 @@
 import type { Pokemon } from '@app-types/pokemon.types';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
+import PokemonCard from './pokemonCard';
 
-// Simple mock Pokemon data
-const simplePokemon: Pokemon = {
+// Mock Pokemon data for different types and scenarios
+const bulbasaur: Pokemon = {
   id: 1,
   name: 'bulbasaur',
   height: 7,
@@ -47,6 +48,13 @@ const simplePokemon: Pokemon = {
         url: 'https://pokeapi.co/api/v2/type/12/',
       },
     },
+    {
+      slot: 2,
+      type: {
+        name: 'poison',
+        url: 'https://pokeapi.co/api/v2/type/4/',
+      },
+    },
   ],
   stats: [],
   abilities: [],
@@ -58,98 +66,183 @@ const simplePokemon: Pokemon = {
   location_area_encounters: 'https://pokeapi.co/api/v2/pokemon/1/encounters',
 };
 
-// Create a simple component wrapper to avoid SASS issues
-const PokemonCardWrapper = ({
-  data,
-  onClick,
-  className,
-}: {
-  data: Pokemon;
-  onClick?: () => void;
-  className?: string;
-}) => (
-  // biome-ignore lint/a11y/noStaticElementInteractions: div acts as interactive element with proper keyboard support
-<div
-    style={{
-      border: '1px solid #ccc',
-      borderRadius: '8px',
-      padding: '16px',
-      width: '200px',
-      textAlign: 'center',
-      cursor: onClick ? 'pointer' : 'default',
-      backgroundColor: '#f5f5f5',
-    }}
-    onClick={onClick}
-    onKeyDown={
-      onClick
-        ? (e) => {
-            if (e.key === 'Enter' || e.key === ' ') onClick();
-          }
-        : undefined
-    }
-    // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-    tabIndex={onClick ? 0 : undefined}
-    role={onClick ? 'button' : undefined}
-    className={className}
-  >
-    <img
-      src={
-        data.sprites.other?.['official-artwork']?.front_default ?? data.sprites.front_default ?? ''
-      }
-      alt={data.name}
-      style={{ width: '100px', height: '100px' }}
-    />
-    <h3 style={{ margin: '8px 0', textTransform: 'capitalize' }}>{data.name}</h3>
-    <p style={{ margin: '4px 0', color: '#666' }}>#{data.id.toString().padStart(3, '0')}</p>
-    <div
-      style={{
-        display: 'flex',
-        gap: '4px',
-        justifyContent: 'center',
-        flexWrap: 'wrap',
-      }}
-    >
-      {data.types.map((type) => (
-        <span
-          key={type.type.name}
-          style={{
-            backgroundColor: '#007bff',
-            color: 'white',
-            padding: '2px 8px',
-            borderRadius: '12px',
-            fontSize: '12px',
-            textTransform: 'capitalize',
-          }}
-        >
-          {type.type.name}
-        </span>
-      ))}
-    </div>
-  </div>
-);
+const charizard: Pokemon = {
+  id: 6,
+  name: 'charizard',
+  height: 17,
+  weight: 905,
+  base_experience: 267,
+  order: 7,
+  is_default: true,
+  sprites: {
+    front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png',
+    front_shiny: null,
+    front_female: null,
+    front_shiny_female: null,
+    back_default: null,
+    back_shiny: null,
+    back_female: null,
+    back_shiny_female: null,
+    other: {
+      dream_world: {
+        front_default:
+          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/6.svg',
+        front_female: null,
+      },
+      home: {
+        front_default:
+          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/6.png',
+        front_female: null,
+        front_shiny: null,
+        front_shiny_female: null,
+      },
+      'official-artwork': {
+        front_default:
+          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png',
+        front_shiny: null,
+      },
+    },
+  },
+  types: [
+    {
+      slot: 1,
+      type: {
+        name: 'fire',
+        url: 'https://pokeapi.co/api/v2/type/10/',
+      },
+    },
+    {
+      slot: 2,
+      type: {
+        name: 'flying',
+        url: 'https://pokeapi.co/api/v2/type/3/',
+      },
+    },
+  ],
+  stats: [],
+  abilities: [],
+  moves: [],
+  species: {
+    name: 'charizard',
+    url: 'https://pokeapi.co/api/v2/pokemon-species/6/',
+  },
+  location_area_encounters: 'https://pokeapi.co/api/v2/pokemon/6/encounters',
+};
 
-const meta: Meta<typeof PokemonCardWrapper> = {
-  title: 'Components/PokemonCard (Simple)',
-  component: PokemonCardWrapper,
+const pikachu: Pokemon = {
+  id: 25,
+  name: 'pikachu',
+  height: 4,
+  weight: 60,
+  base_experience: 112,
+  order: 35,
+  is_default: true,
+  sprites: {
+    front_default:
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png',
+    front_shiny: null,
+    front_female: null,
+    front_shiny_female: null,
+    back_default: null,
+    back_shiny: null,
+    back_female: null,
+    back_shiny_female: null,
+    other: {
+      dream_world: {
+        front_default:
+          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/25.svg',
+        front_female: null,
+      },
+      home: {
+        front_default:
+          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/25.png',
+        front_female: null,
+        front_shiny: null,
+        front_shiny_female: null,
+      },
+      'official-artwork': {
+        front_default:
+          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png',
+        front_shiny: null,
+      },
+    },
+  },
+  types: [
+    {
+      slot: 1,
+      type: {
+        name: 'electric',
+        url: 'https://pokeapi.co/api/v2/type/13/',
+      },
+    },
+  ],
+  stats: [],
+  abilities: [],
+  moves: [],
+  species: {
+    name: 'pikachu',
+    url: 'https://pokeapi.co/api/v2/pokemon-species/25/',
+  },
+  location_area_encounters: 'https://pokeapi.co/api/v2/pokemon/25/encounters',
+};
+
+// Pokemon with missing image (fallback scenario)
+const missingImagePokemon: Pokemon = {
+  ...pikachu,
+  id: 999,
+  name: 'missing-image',
+  sprites: {
+    front_default: null,
+    front_shiny: null,
+    front_female: null,
+    front_shiny_female: null,
+    back_default: null,
+    back_shiny: null,
+    back_female: null,
+    back_shiny_female: null,
+    other: {
+      dream_world: {
+        front_default: null,
+        front_female: null,
+      },
+      home: {
+        front_default: null,
+        front_female: null,
+        front_shiny: null,
+        front_shiny_female: null,
+      },
+      'official-artwork': {
+        front_default: null,
+        front_shiny: null,
+      },
+    },
+  },
+};
+
+const meta: Meta<typeof PokemonCard> = {
+  title: 'Components/PokemonCard',
+  component: PokemonCard,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A simplified Pokemon card component for testing Storybook setup.',
+        component:
+          'Pokemon card component displaying Pokemon information with type-based background colors and click interactions.',
       },
     },
   },
   tags: ['autodocs'],
   argTypes: {
     data: {
-      description: 'Pokemon data object',
+      description: 'Pokemon data object containing all Pokemon information',
       control: { type: 'object' },
     },
     onClick: {
-      description: 'Click handler',
+      description: 'Callback function triggered when the card is clicked',
+      action: 'clicked',
     },
     className: {
-      description: 'CSS class name',
+      description: 'Additional CSS class names to apply to the card',
       control: { type: 'text' },
     },
   },
@@ -160,21 +253,53 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    data: simplePokemon,
-    onClick: () => console.log('Pokemon card clicked!'),
+    data: bulbasaur,
+    onClick: () => console.log('Bulbasaur card clicked!'),
+  },
+};
+
+export const FireFlying: Story = {
+  args: {
+    data: charizard,
+    onClick: () => console.log('Charizard card clicked!'),
+  },
+};
+
+export const Electric: Story = {
+  args: {
+    data: pikachu,
+    onClick: () => console.log('Pikachu card clicked!'),
   },
 };
 
 export const WithoutClick: Story = {
   args: {
-    data: simplePokemon,
+    data: bulbasaur,
   },
 };
 
 export const WithCustomClass: Story = {
   args: {
-    data: simplePokemon,
-    onClick: () => console.log('Pokemon card clicked!'),
-    className: 'custom-card',
+    data: pikachu,
+    onClick: () => console.log('Custom class card clicked!'),
+    className: 'custom-pokemon-card',
+  },
+};
+
+export const MissingImage: Story = {
+  args: {
+    data: missingImagePokemon,
+    onClick: () => console.log('Missing image card clicked!'),
+  },
+};
+
+export const HighId: Story = {
+  args: {
+    data: {
+      ...pikachu,
+      id: 1001,
+      name: 'high-id-pokemon',
+    },
+    onClick: () => console.log('High ID card clicked!'),
   },
 };
