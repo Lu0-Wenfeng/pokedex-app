@@ -6,13 +6,7 @@ import { pluginSvgr } from '@rsbuild/plugin-svgr';
 import { pluginTypeCheck } from '@rsbuild/plugin-type-check';
 
 export default defineConfig({
-  plugins: [
-    pluginReact(),
-    pluginSass(),
-    pluginLess(),
-    pluginTypeCheck(),
-    pluginSvgr(),
-  ],
+  plugins: [pluginReact(), pluginSass(), pluginLess(), pluginTypeCheck(), pluginSvgr()],
 
   // HTML template configuration
   html: {
@@ -30,6 +24,7 @@ export default defineConfig({
 
   // Development server configuration
   server: {
+    host: 'localhost',
     port: 3000,
     open: true,
   },
