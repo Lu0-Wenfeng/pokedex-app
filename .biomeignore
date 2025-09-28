@@ -5,3 +5,4 @@ node_modules/**
 **/*.spec.{ts,tsx}
 src/reportWebVitals.js
 *.log
+**/*.stories.{ts,tsx}

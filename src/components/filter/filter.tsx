@@ -17,8 +17,8 @@ import type { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, of } from 'rxjs';
 
 import './filter.scss';
-import AppMultiSelectDropDown from './multiSelectDropdown/multiSelectDropdown.tsx';
-import SearchFilter from './search/search.filter.tsx';
+import AppMultiSelectDropDown from './multiSelectDropdown/multiSelectDropdown';
+import SearchFilter from './search/search.filter';
 
 const AppFilter: React.FC<FilterProps> = ({ isFilterEnable }) => {
   const context = useContext(PokemonContext);
