@@ -25,6 +25,7 @@
       "@store/*": ["./src/store/*"],
       "@styles/*": ["./src/styles/*"],
       "@app-types/*": ["./src/types/*"],
+      "@utils/*": ["./src/utils/*"],
       "@/*": ["./src/*"]
     },
     "noImplicitAny": true,
@@ -43,11 +44,5 @@
     "allowImportingTsExtensions": true
   },
   "include": ["src", ".storybook"],
-  "exclude": [
-    "node_modules",
-    "build",
-    "dist",
-    "**/*.test.tsx",
-    "**/*.test.ts"
-  ]
+  "exclude": ["node_modules", "build", "dist"]
 }
